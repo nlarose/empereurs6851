@@ -108,6 +108,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotPeriodic() {
 		Dashboard.update();
+		SmartDashboard.putNumber("joyX", oi.joystick1.getX());
+		SmartDashboard.putNumber("joyY", oi.joystick1.getY());
 	}
 	
 	/**

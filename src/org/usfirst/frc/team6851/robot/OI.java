@@ -14,6 +14,7 @@ import javax.management.monitor.Monitor;
 import org.usfirst.frc.team6851.robot.commands.driving.ToggleDriveDirectionCommand;
 import org.usfirst.frc.team6851.robot.commands.driving.ToggleNavxNavigationCommand;
 import org.usfirst.frc.team6851.robot.commands.driving.ToggleSlowerMoveCommand;
+import org.usfirst.frc.team6851.robot.subsystems.DriveType;
 import org.usfirst.frc.team6851.robot.utils.Gamepad.GamepadAxis;
 import org.usfirst.frc.team6851.robot.utils.Gamepad.GamepadButton;
 import org.usfirst.frc.team6851.robot.utils.input.AxisInputBase;
@@ -28,9 +29,8 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-public Joystick joystick1;
 	
-	public Joystick testJoystick;
+	public Joystick joystick1;
 	
 	public AxisInputBase moveInput;
 	public AxisInputBase rotateInput;
@@ -44,15 +44,22 @@ public Joystick joystick1;
 	public OI() {
 		//initTestJoystick();
 		joystick1 = new Joystick(0);
-		
 		// Drive Speed and reverse controls
 		getButton(GamepadButton.A).toggleWhenActive(new ToggleSlowerMoveCommand());
 		getButton(GamepadButton.B).toggleWhenActive(new ToggleDriveDirectionCommand());
 		getButton(GamepadButton.Start).toggleWhenActive(new ToggleNavxNavigationCommand());
 		
 		//Drive inputs
-		moveInput   = new DualInputInput( joystick1, GamepadAxis.LeftTrigger, GamepadAxis.RightTrigger, 0 );
-		rotateInput = new JoystickInput(joystick1, GamepadAxis.LeftX, 0.08);
+		//moveInput   = new DualInputInput( joystick1, GamepadAxis.LeftTrigger, GamepadAxis.RightTrigger, 0.08 );
+		if(Dashboard.DrivingStyle.equals(DriveType.Joystick)) {
+			rotateInput = new JoystickInput(joystick1, GamepadAxis.LeftX, 0.03);
+			moveInput = new JoystickInput(joystick1, GamepadAxis.LeftY, 0.03);
+			
+			getButton(GamepadButton.A).toggleWhenActive(new ToggleSlowerMoveCommand());
+			getButton(GamepadButton.B).toggleWhenActive(new ToggleDriveDirectionCommand());
+			getButton(GamepadButton.Start).toggleWhenActive(new ToggleNavxNavigationCommand());
+			
+		}
 	}
 	
 	private void initTestJoystick() {
