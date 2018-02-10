@@ -8,12 +8,12 @@ public class PrintGyroWhenStable extends CommandBase{
 	
 	@Override
 	protected boolean isFinished() {
-		return !drivetrain.navx.isRotating();
+		return !driveTrain.navx.isRotating();
 	}
 	
 	@Override
 	protected void end() {
-		System.out.println(String.format("Current Gyro Angle %.2f", drivetrain.getOrientation()));
+		System.out.println(String.format("Current Gyro Angle %.2f", driveTrain.getOrientation()));
 	}
 
 }

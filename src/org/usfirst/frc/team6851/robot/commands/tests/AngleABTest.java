@@ -8,13 +8,13 @@ public class AngleABTest extends CommandBase{
 	
 	@Override
 	protected boolean isFinished() {
-		return !drivetrain.navx.isRotating();
+		return !driveTrain.navx.isRotating();
 	}
 
 	@Override
 	protected void end() {
 		double rotation = 0;
-		double currentAngle = drivetrain.getOrientation();
+		double currentAngle = driveTrain.getOrientation();
 		if(lastAngle < currentAngle)
 			rotation = currentAngle - lastAngle;
 		else

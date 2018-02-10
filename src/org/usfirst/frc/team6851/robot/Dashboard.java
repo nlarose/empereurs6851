@@ -30,7 +30,7 @@ public class Dashboard {
 	}
 	
 	public static void update() {
-		DriveTrain drivetrain = CommandBase.drivetrain;
+		DriveTrain drivetrain = CommandBase.driveTrain;
 		SmartDashboard.putNumber("Gyro angle", drivetrain.getOrientation());
 		SmartDashboard.putBoolean("navx isCalibrating", drivetrain.navx.isCalibrating());
 		

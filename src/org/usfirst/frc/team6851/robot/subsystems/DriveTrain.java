@@ -6,6 +6,7 @@ import org.usfirst.frc.team6851.robot.utils.MathUtils;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -16,6 +17,8 @@ public class DriveTrain extends Subsystem {
 	public final DifferentialDrive drive = new DifferentialDrive(new Spark(RobotMap.leftMotor), new Spark(RobotMap.rightMotor));
 	public final AHRS navx = new AHRS(SPI.Port.kMXP);
 	
+	public Encoder leftEncoder = tryInitEncoder(RobotMap.leftMotorEncoderA, RobotMap.leftMotorEncoderB);
+	public Encoder rightEncoder = tryInitEncoder(RobotMap.rightMotorEncoderA, RobotMap.rightMotorEncoderB);
 	
 	// HeadingKeeping
 	public boolean correctOrientationWithNavx;
@@ -68,4 +71,20 @@ public class DriveTrain extends Subsystem {
 	public double getOrientation() {
 		return navx.getAngle();
 	}
+	public static Encoder tryInitEncoder(int sourceA, int sourceB) {
+        try {
+            Encoder encoder = new Encoder(sourceA, sourceB);
+            return encoder;
+
+        } catch (RuntimeException re) {
+            if (re.getMessage().contains("Code: -1029")) {
+                System.err.println(
+                        "ERRROR! Encoder at source A:" + sourceA + " and source B:" + sourceB + " is not pluged-in.");
+            } else {
+                System.err.println(re.getMessage());
+            }
+        }
+        return null;
+    }
+	
 }
