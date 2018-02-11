@@ -8,7 +8,7 @@ public class ToggleNavxNavigationCommand extends OneShotCommandBase{
 
 	@Override
 	protected void initialize() {
-		driveTrain.correctOrientationWithNavx = !driveTrain.correctOrientationWithNavx;
-		SmartDashboard.putBoolean("NavX", driveTrain.correctOrientationWithNavx);
+		driveBase.correctOrientationWithNavx = !driveBase.correctOrientationWithNavx;
+		SmartDashboard.putBoolean("NavX", driveBase.correctOrientationWithNavx);
 	}
 }

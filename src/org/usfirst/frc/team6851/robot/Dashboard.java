@@ -1,9 +1,8 @@
 package org.usfirst.frc.team6851.robot;
 
 import org.usfirst.frc.team6851.robot.commands.CommandBase;
-import org.usfirst.frc.team6851.robot.commands.autonomous.DoNothing;
-import org.usfirst.frc.team6851.robot.commands.autonomous.TestAutonomous;
-import org.usfirst.frc.team6851.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team6851.robot.commands.autonomous.*;
+import org.usfirst.frc.team6851.robot.subsystems.DriveBase;
 import org.usfirst.frc.team6851.robot.subsystems.DriveType;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -12,15 +11,28 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Dashboard {
 
-	public static final SendableChooser<Command> chooser = new SendableChooser<>();
+	public static final SendableChooser<Command> LRLChooser = new SendableChooser<>();
+	public static final SendableChooser<Command> RLRChooser = new SendableChooser<>();
+	public static final SendableChooser<Command> LLLChooser = new SendableChooser<>();
+	public static final SendableChooser<Command> RRRChooser = new SendableChooser<>();
 	public static final SendableChooser<DriveType> DrivingStyle = new SendableChooser<>();
 	
 	private static int autonomousStepIndex = 0;
 	
 	public static void init() {
-		chooser.addObject("Do nothing", new DoNothing());
-		chooser.addDefault("Test", new TestAutonomous());
-		SmartDashboard.putData("Auto mode", chooser);
+		SmartDashboard.putData("Auto LRL mode", LRLChooser);
+		SmartDashboard.putData("Auto RLR mode", RLRChooser);
+		SmartDashboard.putData("Auto LLL mode", LLLChooser);
+		SmartDashboard.putData("Auto RRR mode", RRRChooser);
+
+		AddToAutos("An-Side go to Switch throw near", new AutoSideSwitchNear(false), new AutoSideSwitchNear(true));
+		AddToAutos("Am-Side go to Switch throw in middle", new AutoSideSwitchCenter(false), new AutoSideSwitchCenter(true));
+		AddToAutos("Af-Side go to Switch throw far", new AutoSideSwitchFar(false), new AutoSideSwitchFar(true));
+		AddToAutos("Bf-Side exchange fast", new AutoSideExchangeFast(false), new AutoCenterExchange(true));
+		AddToAutos("Bf-Side exchange tight", new AutoSideExchangeTight(false), new AutoSideExchangeTight(true));
+		AddToAutos("C -Just do the line", new AutoSideJustLine(false), new AutoSideJustLine(true));
+		AddToAutos("D -Switch to the side", new AutoSideSwitchSide(false), new AutoSideSwitchSide(true));
+		
 		
 		DrivingStyle.addDefault("Dual analog Gamepad", DriveType.DrivingGame);
 		DrivingStyle.addObject("Extreme 3D Pro", DriveType.Joystick);
@@ -29,12 +41,25 @@ public class Dashboard {
 		resetAutonomousSteps();
 	}
 	
+	private static void AddToAutos(String name, Command autoCommandLeft, Command autoCommandRight) {
+		LRLChooser.addObject(name, autoCommandLeft);
+		RLRChooser.addObject(name, autoCommandRight);
+		LLLChooser.addObject(name, autoCommandLeft);
+		RRRChooser.addObject(name, autoCommandRight);
+		
+		
+	}
+	
 	public static void update() {
-		DriveTrain drivetrain = CommandBase.driveTrain;
-		SmartDashboard.putNumber("Gyro angle", drivetrain.getOrientation());
-		SmartDashboard.putBoolean("navx isCalibrating", drivetrain.navx.isCalibrating());
+		DriveBase drivebase = CommandBase.driveBase;
+		SmartDashboard.putNumber("Gyro angle", drivebase.getOrientation());
+		SmartDashboard.putBoolean("navx isCalibrating", drivebase.navx.isCalibrating());
 		
+		SmartDashboard.putNumber("LeftSensor", drivebase.getLeftSensorDistance());
+		SmartDashboard.putNumber("RightSensor", drivebase.getRightSensorDistance());
 		
+		SmartDashboard.putNumber("Left Motor Encoder", drivebase.getLeftEncoderDistance());
+		SmartDashboard.putNumber("Right Motor Encoder", drivebase.getRightEncoderDistance());
 	}
 	
 	public static void resetAutonomousSteps() {

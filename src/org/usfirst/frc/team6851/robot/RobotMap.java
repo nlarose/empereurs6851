@@ -22,6 +22,7 @@ public class RobotMap {
 	public static int leftMotorEncoderB = 3;
 	public static int rightMotorEncoderA = 0;
 	public static int rightMotorEncoderB = 1;
+	
 	public static int frontRightSensorEcho = 4;	
 	public static int frontRightSensorTrigger = 5;
 	public static int frontLeftSensorEcho = 6;

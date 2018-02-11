@@ -13,14 +13,15 @@ import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Ultrasonic.Unit;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class DriveTrain extends Subsystem {
+public class DriveBase extends Subsystem {
 	public final DifferentialDrive drive = new DifferentialDrive(new Spark(RobotMap.leftMotor), new Spark(RobotMap.rightMotor));
 	public final AHRS navx = new AHRS(SPI.Port.kMXP);
 	
 	private final Encoder leftEncoder 		= tryInitEncoder(RobotMap.leftMotorEncoderA, RobotMap.leftMotorEncoderB);
-	private final Encoder rightEncoder 	= tryInitEncoder(RobotMap.rightMotorEncoderA, RobotMap.rightMotorEncoderB);
+	private final Encoder rightEncoder 		= tryInitEncoder(RobotMap.rightMotorEncoderA, RobotMap.rightMotorEncoderB);
 	
 	private final Ultrasonic leftSensor  	= tryInitSensor(RobotMap.frontLeftSensorEcho, RobotMap.frontLeftSensorTrigger);
 	private final Ultrasonic rightSensor 	= tryInitSensor(RobotMap.frontRightSensorEcho, RobotMap.frontRightSensorTrigger);
@@ -36,7 +37,6 @@ public class DriveTrain extends Subsystem {
 	@Override
 	protected void initDefaultCommand() {
 		navx.reset();
-		// TODO Auto-generated method stub
 		setDefaultCommand(new JoystickDriveCommand());
 	}
 
@@ -95,7 +95,7 @@ public class DriveTrain extends Subsystem {
 		if(leftSensor != null)
 			return leftSensor.pidGet();
 		else
-			return 0;
+			return 0; //@rebustness If there is no sensor, what do we wan? Infinit distance, negatif?
 	}
 	
 	public double getRightSensorDistance() {
@@ -105,9 +105,22 @@ public class DriveTrain extends Subsystem {
 			return 0;
 	}
 	
+	public boolean isUnderWallDistanceOf(double wallNearness) {
+		if(rightSensor != null && rightSensor.pidGet() < wallNearness)
+			return true;
+		else if(leftSensor != null && leftSensor.pidGet() < wallNearness)
+			return true;
+		else
+			return false;
+	}
+	
+	
+	
+	
 	public static Encoder tryInitEncoder(int sourceA, int sourceB) {
         try {
             Encoder encoder = new Encoder(sourceA, sourceB);
+			LiveWindow.add(encoder);
             return encoder;
 
         } catch (RuntimeException re) {
@@ -125,6 +138,7 @@ public class DriveTrain extends Subsystem {
 			Ultrasonic sensor = new Ultrasonic(ping, echo);
 			sensor.setAutomaticMode(true);
 			sensor.setDistanceUnits(Unit.kInches);
+			LiveWindow.add(sensor);
 			return sensor;
 		}catch(Exception e) {
             System.err.println("ERRROR! Sensor of ping:" + ping + " and echo :" + echo + " is not pluged-in.");

@@ -28,12 +28,12 @@ public class TurnToAngleCommand extends CommandBase{
 		Dashboard.updateAutonomousStep(str);
 		System.out.println(str);
 		isAtAjustableSpeed = false;
-		lastGyroValue = driveTrain.getOrientation();
+		lastGyroValue = driveBase.getOrientation();
 	}
 
 	@Override
 	protected void execute() {
-		double currentAngle = driveTrain.getOrientation();
+		double currentAngle = driveBase.getOrientation();
 		double n = 5;
 		gyroAverage = gyroAverage *(n-1)/n + (currentAngle - lastGyroValue)/n;
 		lastGyroValue = currentAngle;
@@ -45,7 +45,7 @@ public class TurnToAngleCommand extends CommandBase{
 	}
 
 	private void AjustableSpeedTurn() {
-		double currentAngle = driveTrain.getOrientation();
+		double currentAngle = driveBase.getOrientation();
 
 		if(ajustableSpeedSpeed == 0) {
 			ajustableSpeedSpeed = 0.2 * speed * Math.signum(wantedAngle - currentAngle);
@@ -64,11 +64,11 @@ public class TurnToAngleCommand extends CommandBase{
 		String str = String.format("Turning (ending) with gyro to %.2f degre, currently at %.2f degre", wantedAngle, currentAngle);
 		Dashboard.updateAutonomousStep(str);
 		
-		driveTrain.drive(0, ajustableSpeedSpeed);
+		driveBase.drive(0, ajustableSpeedSpeed);
 	}
 
 	private void Turn() {
-		double currentAngle = driveTrain.getOrientation();
+		double currentAngle = driveBase.getOrientation();
 		
 		double s = speed * Math.signum(wantedAngle - currentAngle);
 		double f = 1;
@@ -78,7 +78,7 @@ public class TurnToAngleCommand extends CommandBase{
 		String str = String.format("Turning with gyro to %.2f degre, currently at %.2f degre", wantedAngle, currentAngle);
 		Dashboard.updateAutonomousStep(str);
 		f = easeTurn(f);
-		driveTrain.drive(0, s * f);
+		driveBase.drive(0, s * f);
 		
 		//On garde toujours la derniere vitesse pour commencer smooth sur le ajustableSpeed
 		ajustableSpeedSpeed = s*f;
@@ -89,12 +89,12 @@ public class TurnToAngleCommand extends CommandBase{
 	}
 
 	protected boolean isFinished() {
-		return Math.abs(driveTrain.getOrientation()) > Math.abs(wantedAngle);
+		return Math.abs(driveBase.getOrientation()) > Math.abs(wantedAngle);
 	}
 
 	@Override
 	protected void end() {
-		driveTrain.drive(0, 0);
+		driveBase.drive(0, 0);
 		String message =  String.format("Turned to %f degre! :)", wantedAngle);
 		Dashboard.updateAutonomousStep(message);
 		System.out.println(message);
@@ -102,7 +102,7 @@ public class TurnToAngleCommand extends CommandBase{
 
 	@Override
 	protected void interrupted() {
-		driveTrain.drive(0, 0);
+		driveBase.drive(0, 0);
 		String message =  String.format("Turning to %f degre interrupted! :(", wantedAngle);
 		Dashboard.updateAutonomousStep(message);
 		System.out.println(message);

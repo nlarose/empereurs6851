@@ -18,7 +18,7 @@ public class TurnRobotCommand extends TurnToAngleCommand{
 
 	@Override
 	protected void initialize() {
-		wantedAngle = driveTrain.navx.getAngle() + angleOffset;
+		wantedAngle = driveBase.navx.getAngle() + angleOffset;
 		Dashboard.nextAutonomousStep();
 	}
 
