@@ -9,6 +9,8 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.Ultrasonic.Unit;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,8 +19,11 @@ public class DriveTrain extends Subsystem {
 	public final DifferentialDrive drive = new DifferentialDrive(new Spark(RobotMap.leftMotor), new Spark(RobotMap.rightMotor));
 	public final AHRS navx = new AHRS(SPI.Port.kMXP);
 	
-	public Encoder leftEncoder = tryInitEncoder(RobotMap.leftMotorEncoderA, RobotMap.leftMotorEncoderB);
-	public Encoder rightEncoder = tryInitEncoder(RobotMap.rightMotorEncoderA, RobotMap.rightMotorEncoderB);
+	private final Encoder leftEncoder 		= tryInitEncoder(RobotMap.leftMotorEncoderA, RobotMap.leftMotorEncoderB);
+	private final Encoder rightEncoder 	= tryInitEncoder(RobotMap.rightMotorEncoderA, RobotMap.rightMotorEncoderB);
+	
+	private final Ultrasonic leftSensor  	= tryInitSensor(RobotMap.frontLeftSensorEcho, RobotMap.frontLeftSensorTrigger);
+	private final Ultrasonic rightSensor 	= tryInitSensor(RobotMap.frontRightSensorEcho, RobotMap.frontRightSensorTrigger);
 	
 	// HeadingKeeping
 	public boolean correctOrientationWithNavx;
@@ -71,6 +76,35 @@ public class DriveTrain extends Subsystem {
 	public double getOrientation() {
 		return navx.getAngle();
 	}
+	
+	public double getLeftEncoderDistance() {
+		if(leftEncoder != null)
+			return leftEncoder.get();
+		else
+			return 0;
+	}
+	
+	public double getRightEncoderDistance() {
+		if(rightEncoder != null)
+			return rightEncoder.get();
+		else
+			return 0;
+	}
+	
+	public double getLeftSensorDistance() {
+		if(leftSensor != null)
+			return leftSensor.pidGet();
+		else
+			return 0;
+	}
+	
+	public double getRightSensorDistance() {
+		if(rightSensor != null)
+			return rightSensor.pidGet();
+		else
+			return 0;
+	}
+	
 	public static Encoder tryInitEncoder(int sourceA, int sourceB) {
         try {
             Encoder encoder = new Encoder(sourceA, sourceB);
@@ -78,13 +112,26 @@ public class DriveTrain extends Subsystem {
 
         } catch (RuntimeException re) {
             if (re.getMessage().contains("Code: -1029")) {
-                System.err.println(
-                        "ERRROR! Encoder at source A:" + sourceA + " and source B:" + sourceB + " is not pluged-in.");
+                System.err.println("ERRROR! Encoder at source A:" + sourceA + " and source B:" + sourceB + " is not pluged-in.");
             } else {
                 System.err.println(re.getMessage());
             }
         }
         return null;
     }
+	
+	public static Ultrasonic tryInitSensor(int ping, int echo) {
+		try {
+			Ultrasonic sensor = new Ultrasonic(ping, echo);
+			sensor.setAutomaticMode(true);
+			sensor.setDistanceUnits(Unit.kInches);
+			return sensor;
+		}catch(Exception e) {
+            System.err.println("ERRROR! Sensor of ping:" + ping + " and echo :" + echo + " is not pluged-in.");
+            System.err.println(e.getMessage());
+		}
+		return null;
+	}
+	
 	
 }
