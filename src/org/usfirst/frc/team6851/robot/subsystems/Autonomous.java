@@ -13,7 +13,6 @@ public class Autonomous extends Subsystem{
 	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new DoNothing());
 	}
 
 }

@@ -20,11 +20,11 @@ public class DriveBase extends Subsystem {
 	public final DifferentialDrive drive = new DifferentialDrive(new Spark(RobotMap.leftMotor), new Spark(RobotMap.rightMotor));
 	public final AHRS navx = new AHRS(SPI.Port.kMXP);
 	
-	private final Encoder leftEncoder 		= tryInitEncoder(RobotMap.leftMotorEncoderA, RobotMap.leftMotorEncoderB);
-	private final Encoder rightEncoder 		= tryInitEncoder(RobotMap.rightMotorEncoderA, RobotMap.rightMotorEncoderB);
+	private final Encoder leftEncoder 		= tryInitEncoder(RobotMap.leftMotorEncoderA, RobotMap.leftMotorEncoderB 	, "Left  Encoder");
+	private final Encoder rightEncoder 		= tryInitEncoder(RobotMap.rightMotorEncoderA, RobotMap.rightMotorEncoderB 	, "Right Encoder");
 	
-	private final Ultrasonic leftSensor  	= tryInitSensor(RobotMap.frontLeftSensorEcho, RobotMap.frontLeftSensorTrigger);
-	private final Ultrasonic rightSensor 	= tryInitSensor(RobotMap.frontRightSensorEcho, RobotMap.frontRightSensorTrigger);
+	private final Ultrasonic leftSensor  	= tryInitSensor(RobotMap.frontLeftSensorEcho, RobotMap.frontLeftSensorTrigger	, "Left  Ultrasonic");
+	private final Ultrasonic rightSensor 	= tryInitSensor(RobotMap.frontRightSensorEcho, RobotMap.frontRightSensorTrigger , "Right Ultrasonic");
 	
 	// HeadingKeeping
 	public boolean correctOrientationWithNavx;
@@ -117,7 +117,7 @@ public class DriveBase extends Subsystem {
 	
 	
 	
-	public static Encoder tryInitEncoder(int sourceA, int sourceB) {
+	public static Encoder tryInitEncoder(int sourceA, int sourceB, String name) {
         try {
             Encoder encoder = new Encoder(sourceA, sourceB);
 			LiveWindow.add(encoder);
@@ -125,7 +125,7 @@ public class DriveBase extends Subsystem {
 
         } catch (RuntimeException re) {
             if (re.getMessage().contains("Code: -1029")) {
-                System.err.println("ERRROR! Encoder at source A:" + sourceA + " and source B:" + sourceB + " is not pluged-in.");
+                System.err.println("ERRROR! Encoder " + name + "at source A:" + sourceA + " and source B:" + sourceB + " is not pluged-in.");
             } else {
                 System.err.println(re.getMessage());
             }
@@ -133,7 +133,7 @@ public class DriveBase extends Subsystem {
         return null;
     }
 	
-	public static Ultrasonic tryInitSensor(int ping, int echo) {
+	public static Ultrasonic tryInitSensor(int ping, int echo, String name) {
 		try {
 			Ultrasonic sensor = new Ultrasonic(ping, echo);
 			sensor.setAutomaticMode(true);
@@ -141,8 +141,9 @@ public class DriveBase extends Subsystem {
 			LiveWindow.add(sensor);
 			return sensor;
 		}catch(Exception e) {
-            System.err.println("ERRROR! Sensor of ping:" + ping + " and echo :" + echo + " is not pluged-in.");
-            System.err.println(e.getMessage());
+            System.err.println("ERRROR! Sensor " + name + "of ping:" + ping + " and echo :" + echo + " is not pluged-in.");
+            if(e.getMessage() != null)
+            	System.err.println(e.getMessage());
 		}
 		return null;
 	}
