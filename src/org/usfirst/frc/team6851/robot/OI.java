@@ -40,7 +40,7 @@ public class OI {
 	public AxisInputBase rotateInput;
 	
 	public boolean reverseDriveDirection = false;
-	public double driveSpeedFactor = 0.4;
+	public double driveSpeedFactor = 0.8;
 	
 	private double t;
 	private long lastUpdate;
@@ -51,9 +51,6 @@ public class OI {
 		//initTestJoystick();
 		joystick1 = new Joystick(0);
 		// Drive Speed and reverse controls
-		getButton(GamepadButton.A).toggleWhenActive(new ToggleSlowerMoveCommand());
-		getButton(GamepadButton.B).toggleWhenActive(new ToggleDriveDirectionCommand());
-		getButton(GamepadButton.Start).toggleWhenActive(new ToggleNavxNavigationCommand());
 		
 		changeIoTo(Dashboard.DrivingStyle.getSelected());
 	}

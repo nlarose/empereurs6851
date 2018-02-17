@@ -27,8 +27,8 @@ public class DriveBase extends Subsystem {
 	private final Ultrasonic rightSensor 	= tryInitSensor(RobotMap.frontRightSensorEcho, RobotMap.frontRightSensorTrigger , "Right Ultrasonic");
 	
 	// HeadingKeeping
-	public boolean correctOrientationWithNavx;
-	public final double CORRECTION_FACTOR = 0.35;
+	public boolean correctOrientationWithNavx = true;
+	public final double CORRECTION_FACTOR = 0.05;
 	public final double MAX_CORRECTION = 0.6;
 	public final double MIN_CORRECTION = 0.05;
 	
