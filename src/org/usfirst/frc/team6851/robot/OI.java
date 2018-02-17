@@ -8,10 +8,8 @@
 package org.usfirst.frc.team6851.robot;
 
 import java.util.ArrayList;
-import java.util.Timer;
 
-import javax.management.monitor.Monitor;
-
+import org.usfirst.frc.team6851.robot.commands.claw.RaiseGrabber;
 import org.usfirst.frc.team6851.robot.commands.driving.ToggleDriveDirectionCommand;
 import org.usfirst.frc.team6851.robot.commands.driving.ToggleNavxNavigationCommand;
 import org.usfirst.frc.team6851.robot.commands.driving.ToggleSlowerMoveCommand;
@@ -51,6 +49,9 @@ public class OI {
 		//initTestJoystick();
 		joystick1 = new Joystick(0);
 		// Drive Speed and reverse controls
+		getButton(GamepadButton.A).toggleWhenActive(new ToggleSlowerMoveCommand());
+		getButton(GamepadButton.B).toggleWhenActive(new ToggleDriveDirectionCommand());
+		getButton(GamepadButton.Start).toggleWhenActive(new ToggleNavxNavigationCommand());
 		
 		changeIoTo(Dashboard.DrivingStyle.getSelected());
 	}
@@ -88,7 +89,7 @@ public class OI {
 		getButton(GamepadButton.A).toggleWhenActive(new ToggleSlowerMoveCommand());
 		getButton(GamepadButton.B).toggleWhenActive(new ToggleDriveDirectionCommand());
 		getButton(GamepadButton.Start).toggleWhenActive(new ToggleNavxNavigationCommand());
-		
+		getButton(GamepadButton.X).whileHeld(new RaiseGrabber());
 		currentDriveType = DriveType.DrivingGame;
 		System.out.println("Switching to Gamepad");
 	}

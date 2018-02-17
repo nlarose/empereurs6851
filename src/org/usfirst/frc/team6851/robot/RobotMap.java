@@ -28,4 +28,12 @@ public class RobotMap {
 	public static int frontLeftSensorEcho = 6;
 	public static int frontLeftSensorTrigger = 7;
 
+	//grabber 
+	public static int lowerLimitSwitch = 8;
+	public static int upperLimitSwitch = 9;
+	public static int screwMotor = 3;
+	public static int grabberMotorLeft = 4;
+	public static int grabberMotorRight = 5;
+	public static int screwHeightPotentiometer = 0;
+	//
 }

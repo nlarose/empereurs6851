@@ -9,7 +9,7 @@ package org.usfirst.frc.team6851.robot;
 
 import org.usfirst.frc.team6851.robot.commands.CommandBase;
 import org.usfirst.frc.team6851.robot.commands.ExampleCommand;
-import org.usfirst.frc.team6851.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team6851.robot.subsystems.Grabber;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -25,11 +25,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static final ExampleSubsystem kExampleSubsystem
-			= new ExampleSubsystem();
+	public static final Grabber kExampleSubsystem
+			= new Grabber();
 	public static OI oi;
 
 	Command m_autonomousCommand;
+	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -69,7 +70,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = Dashboard.LLLChooser.getSelected();
+		m_autonomousCommand = m_chooser.getSelected();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",

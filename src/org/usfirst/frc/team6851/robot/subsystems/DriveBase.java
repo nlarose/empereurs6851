@@ -6,6 +6,7 @@ import org.usfirst.frc.team6851.robot.utils.MathUtils;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Spark;
@@ -27,8 +28,8 @@ public class DriveBase extends Subsystem {
 	private final Ultrasonic rightSensor 	= tryInitSensor(RobotMap.frontRightSensorEcho, RobotMap.frontRightSensorTrigger , "Right Ultrasonic");
 	
 	// HeadingKeeping
-	public boolean correctOrientationWithNavx = true;
-	public final double CORRECTION_FACTOR = 0.05;
+	public boolean correctOrientationWithNavx;
+	public final double CORRECTION_FACTOR = 0.35;
 	public final double MAX_CORRECTION = 0.6;
 	public final double MIN_CORRECTION = 0.05;
 	
@@ -119,7 +120,7 @@ public class DriveBase extends Subsystem {
 	
 	public static Encoder tryInitEncoder(int sourceA, int sourceB, String name) {
         try {
-            Encoder encoder = new Encoder(sourceA, sourceB);
+            Encoder encoder = new Encoder(sourceA, sourceB, false, EncodingType.k1X) ;
 			LiveWindow.add(encoder);
             return encoder;
 
