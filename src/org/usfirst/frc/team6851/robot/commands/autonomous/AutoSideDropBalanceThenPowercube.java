@@ -1,6 +1,6 @@
 package org.usfirst.frc.team6851.robot.commands.autonomous;
 
-import org.usfirst.frc.team6851.robot.commands.claw.DropPowerCube;
+import org.usfirst.frc.team6851.robot.commands.claw.ThrowPowerCube;
 import org.usfirst.frc.team6851.robot.commands.driving.MoveDistance;
 import org.usfirst.frc.team6851.robot.commands.driving.MoveUntilNearWall;
 import org.usfirst.frc.team6851.robot.commands.driving.TurnRobotCommand;

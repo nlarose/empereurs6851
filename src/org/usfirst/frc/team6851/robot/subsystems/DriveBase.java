@@ -6,26 +6,22 @@ import org.usfirst.frc.team6851.robot.utils.MathUtils;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Ultrasonic;
-import edu.wpi.first.wpilibj.Ultrasonic.Unit;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class DriveBase extends Subsystem {
+public class DriveBase extends SubsystemBase {
 	public final DifferentialDrive drive = new DifferentialDrive(new Spark(RobotMap.leftMotor), new Spark(RobotMap.rightMotor));
 	public final AHRS navx = new AHRS(SPI.Port.kMXP);
 	
-	private final Encoder leftEncoder 		= tryInitEncoder(RobotMap.leftMotorEncoderA, RobotMap.leftMotorEncoderB 	, "Left  Encoder");
-	private final Encoder rightEncoder 		= tryInitEncoder(RobotMap.rightMotorEncoderA, RobotMap.rightMotorEncoderB 	, "Right Encoder");
+	public final Encoder leftEncoder 		= tryInitEncoder(RobotMap.leftMotorEncoderA, RobotMap.leftMotorEncoderB 	, false, "Left  Encoder");
+	public final Encoder rightEncoder 		= tryInitEncoder(RobotMap.rightMotorEncoderA, RobotMap.rightMotorEncoderB 	, true ,"Right Encoder");
 	
-	private final Ultrasonic leftSensor  	= tryInitSensor(RobotMap.frontLeftSensorEcho, RobotMap.frontLeftSensorTrigger	, "Left  Ultrasonic");
-	private final Ultrasonic rightSensor 	= tryInitSensor(RobotMap.frontRightSensorEcho, RobotMap.frontRightSensorTrigger , "Right Ultrasonic");
+	public final Ultrasonic leftSensor  	= tryInitSensor(RobotMap.frontLeftSensorEcho, RobotMap.frontLeftSensorTrigger	, "Left  Ultrasonic");
+	public final Ultrasonic rightSensor 	= tryInitSensor(RobotMap.frontRightSensorEcho, RobotMap.frontRightSensorTrigger , "Right Ultrasonic");
 	
 	// HeadingKeeping
 	public boolean correctOrientationWithNavx;
@@ -113,41 +109,6 @@ public class DriveBase extends Subsystem {
 			return true;
 		else
 			return false;
-	}
-	
-	
-	
-	
-	public static Encoder tryInitEncoder(int sourceA, int sourceB, String name) {
-        try {
-            Encoder encoder = new Encoder(sourceA, sourceB, false, EncodingType.k1X) ;
-			LiveWindow.add(encoder);
-            return encoder;
-
-        } catch (RuntimeException re) {
-            if (re.getMessage().contains("Code: -1029")) {
-                System.err.println("ERRROR! Encoder " + name + "at source A:" + sourceA + " and source B:" + sourceB + " is not pluged-in.");
-            } else {
-                System.err.println(re.getMessage());
-            }
-        }
-        return null;
-    }
-	
-	public static Ultrasonic tryInitSensor(int ping, int echo, String name) {
-		try {
-			Ultrasonic sensor = new Ultrasonic(ping, echo);
-			sensor.setAutomaticMode(true);
-			sensor.setDistanceUnits(Unit.kInches);
-			LiveWindow.add(sensor);
-			return sensor;
-		}catch(Exception e) {
-            System.err.println("ERRROR! Sensor " + name + "of ping:" + ping + " and echo :" + echo + " is not pluged-in.");
-            if(e.getMessage() != null)
-            	System.err.println(e.getMessage());
-		}
-		return null;
-	}
-	
+	}	
 	
 }

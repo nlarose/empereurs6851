@@ -9,7 +9,8 @@ package org.usfirst.frc.team6851.robot;
 
 import java.util.ArrayList;
 
-import org.usfirst.frc.team6851.robot.commands.claw.RaiseGrabber;
+import org.usfirst.frc.team6851.robot.commands.claw.SetGrabberDown;
+import org.usfirst.frc.team6851.robot.commands.claw.SetGrabberUp;
 import org.usfirst.frc.team6851.robot.commands.driving.ToggleDriveDirectionCommand;
 import org.usfirst.frc.team6851.robot.commands.driving.ToggleNavxNavigationCommand;
 import org.usfirst.frc.team6851.robot.commands.driving.ToggleSlowerMoveCommand;
@@ -36,9 +37,14 @@ public class OI {
 	
 	public AxisInputBase moveInput;
 	public AxisInputBase rotateInput;
+	public AxisInputBase screwHeightInput;
+	
+	public JoystickButton grabberLeftMotor;
+	public JoystickButton grabberRightMotor;
+	public JoystickButton grabberThrow;
 	
 	public boolean reverseDriveDirection = false;
-	public double driveSpeedFactor = 0.8;
+	public double driveSpeedFactor = 0.6;
 	
 	private double t;
 	private long lastUpdate;
@@ -48,10 +54,6 @@ public class OI {
 	public OI() {
 		//initTestJoystick();
 		joystick1 = new Joystick(0);
-		// Drive Speed and reverse controls
-		getButton(GamepadButton.A).toggleWhenActive(new ToggleSlowerMoveCommand());
-		getButton(GamepadButton.B).toggleWhenActive(new ToggleDriveDirectionCommand());
-		getButton(GamepadButton.Start).toggleWhenActive(new ToggleNavxNavigationCommand());
 		
 		changeIoTo(Dashboard.DrivingStyle.getSelected());
 	}
@@ -73,6 +75,7 @@ public class OI {
 	private void initJoystick() {
 		rotateInput = new JoystickInput(joystick1, GamepadAxis.LeftX, 0.1);
 		moveInput = new JoystickInput(joystick1, GamepadAxis.LeftY, 0.1, -1);
+		screwHeightInput = rotateInput = new JoystickInput(joystick1, GamepadAxis.RightY, 0.1);
 		
 		getButton(Extreme3DProButton._11).toggleWhenActive(new ToggleSlowerMoveCommand());
 		getButton(Extreme3DProButton._12).toggleWhenActive(new ToggleDriveDirectionCommand());
@@ -88,8 +91,14 @@ public class OI {
 		
 		getButton(GamepadButton.A).toggleWhenActive(new ToggleSlowerMoveCommand());
 		getButton(GamepadButton.B).toggleWhenActive(new ToggleDriveDirectionCommand());
-		getButton(GamepadButton.Start).toggleWhenActive(new ToggleNavxNavigationCommand());
-		getButton(GamepadButton.X).whileHeld(new RaiseGrabber());
+		//getButton(GamepadButton.Start).toggleWhenActive(new ToggleNavxNavigationCommand());
+		getButton(GamepadButton.X).whenPressed(new SetGrabberDown(0.3));
+		getButton(GamepadButton.Y).whenPressed(new SetGrabberUp(0.3));
+		
+		grabberLeftMotor = getButton(GamepadButton.LB);
+		grabberRightMotor = getButton(GamepadButton.RB);
+		grabberThrow = getButton(GamepadButton.Start);
+		
 		currentDriveType = DriveType.DrivingGame;
 		System.out.println("Switching to Gamepad");
 	}

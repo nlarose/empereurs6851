@@ -2,22 +2,25 @@ package org.usfirst.frc.team6851.robot.commands.claw;
 
 import org.usfirst.frc.team6851.robot.commands.CommandBase;
 
-public class RaiseGrabber extends CommandBase {
+public class SetGrabberDown extends CommandBase {
 
-	public RaiseGrabber() {
+	double Speed;
+
+	public SetGrabberDown(double speed) {
+		Speed = speed;
 		requires(grabber);
 	}
-	
+
 	@Override
 	protected void execute() {
-		grabber.Raise (0.2);
+		grabber.Lower(Speed);
 	}
-	
+
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return grabber.IsAtLowerLimit();
 	}
-	
+
 	@Override
 	protected void end() {
 		grabber.stopScrewMotor();

@@ -35,6 +35,6 @@ public class RobotMap {
 	public static int screwMotor = 0;
 	public static int grabberMotorLeft = 1;
 	public static int grabberMotorRight = 2;
-	public static int screwHeightPotentiometer = 0;
+	public static int screwHeightPotentiometer = 1;
 	//
 }

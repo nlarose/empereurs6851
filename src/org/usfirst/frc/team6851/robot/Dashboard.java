@@ -25,14 +25,14 @@ public class Dashboard {
 		SmartDashboard.putData("Auto LLL mode", LLLChooser);
 		SmartDashboard.putData("Auto RRR mode", RRRChooser);
 
-		AddToAutos("An-Side go to Switch throw near", new AutoSideSwitchNear(false), new AutoSideSwitchNear(true));
+		/*AddToAutos("An-Side go to Switch throw near", new AutoSideSwitchNear(false), new AutoSideSwitchNear(true));
 		AddToAutos("Am-Side go to Switch throw in middle", new AutoSideSwitchCenter(false), new AutoSideSwitchCenter(true));
 		AddToAutos("Af-Side go to Switch throw far", new AutoSideSwitchFar(false), new AutoSideSwitchFar(true));
 		AddToAutos("Bf-Side exchange fast", new AutoSideExchangeFast(false), new AutoCenterExchange(true));
 		AddToAutos("Bf-Side exchange tight", new AutoSideExchangeTight(false), new AutoSideExchangeTight(true));
 		AddToAutos("C -Just do the line", new AutoSideJustLine(false), new AutoSideJustLine(true));
 		AddToAutos("D -Switch to the side", new AutoSideSwitchSide(false), new AutoSideSwitchSide(true));
-		
+		*/
 		
 		DrivingStyle.addDefault("Dual analog Gamepad", DriveType.DrivingGame);
 		DrivingStyle.addObject("Extreme 3D Pro", DriveType.Joystick);
@@ -60,6 +60,14 @@ public class Dashboard {
 		
 		SmartDashboard.putNumber("Left Motor Encoder", drivebase.getLeftEncoderDistance());
 		SmartDashboard.putNumber("Right Motor Encoder", drivebase.getRightEncoderDistance());
+		//System.out.println(drivebase.leftEncoder.getRaw() + " , " + drivebase.rightEncoder.getRaw());
+		/*System.out.print(" - Ultrasensor -");
+		if(drivebase.leftSensor != null) 
+			System.out.print(" left:" + drivebase.leftSensor.getRangeInches());
+		if(drivebase.rightSensor != null) 
+			System.out.print(" right:" + drivebase.rightSensor.getRangeInches());
+		System.out.println("");*/
+		
 	}
 	
 	public static void resetAutonomousSteps() {

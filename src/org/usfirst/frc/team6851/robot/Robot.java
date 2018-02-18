@@ -8,14 +8,12 @@
 package org.usfirst.frc.team6851.robot;
 
 import org.usfirst.frc.team6851.robot.commands.CommandBase;
-import org.usfirst.frc.team6851.robot.commands.ExampleCommand;
 import org.usfirst.frc.team6851.robot.subsystems.Grabber;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,7 +27,7 @@ public class Robot extends TimedRobot {
 			= new Grabber();
 	public static OI oi;
 
-	Command m_autonomousCommand;
+	Command autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 	/**
@@ -39,6 +37,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		Dashboard.init();
+		SystemCheckUp.init();
 		oi = new OI();
 	}
 
@@ -70,18 +69,10 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_chooser.getSelected();
+		autonomousCommand = Dashboard.LLLChooser.getSelected();
 
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
-
-		// schedule the autonomous command (example)
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.start();
+		if (autonomousCommand != null) {
+			autonomousCommand.start();
 		}
 	}
 
@@ -96,11 +87,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopInit() {
 		CommandBase.driveBase.drive.setSafetyEnabled(true);
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		Command autonomousCommand = null;//Robot.AUTONOMOUS_UPDATE.autonomousCommand;
-		// this line or comment it out.
+		
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 	}
@@ -108,6 +95,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotPeriodic() {
 		Dashboard.update();
+		SystemCheckUp.update();
 		oi.update();
 	}
 	
