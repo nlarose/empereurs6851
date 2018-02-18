@@ -8,7 +8,6 @@
 package org.usfirst.frc.team6851.robot.subsystems;
 
 import org.usfirst.frc.team6851.robot.RobotMap;
-import org.usfirst.frc.team6851.robot.commands.claw.PlayerControledGrabber;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -26,13 +25,16 @@ public class Grabber extends SubsystemBase {
 
 	public DigitalInput lowerLimitSwitch = tryInitDigitalInput(RobotMap.lowerLimitSwitch, "LowerLimiteSwitch");
 	public DigitalInput upperLimitSwitch = tryInitDigitalInput(RobotMap.upperLimitSwitch, "UpperLimitSwitch");
+	public DigitalInput powerCubeInSwitch = tryInitDigitalInput(RobotMap.powerCubeInSwitch, "PowerCubeInSwitch");
+	
 	public TalonSRX screwMotor = new TalonSRX(RobotMap.screwMotor);
 	public TalonSRX grabberMotorLeft = new TalonSRX(RobotMap.grabberMotorLeft);
 	public TalonSRX grabberMotorRight = new TalonSRX(RobotMap.grabberMotorRight);
 	public AnalogInput screwHeight = tryInitAnalogInput(RobotMap.screwHeightPotentiometer, "ScrewHeightPotentiometer");
 
-	public void initDefaultCommand() {
-		setDefaultCommand(new PlayerControledGrabber());
+	@Override
+	protected void initDefaultCommand() {
+		//setDefaultCommand(new JoystickDriveCommand());
 	}
 	
 	public void FeedPowerCube() {
@@ -84,5 +86,6 @@ public class Grabber extends SubsystemBase {
 		grabberMotorLeft.set(ControlMode.Velocity, 0);
 		grabberMotorRight.set(ControlMode.Velocity, 0);
 	}
+
 
 }

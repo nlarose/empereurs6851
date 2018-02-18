@@ -1,8 +1,8 @@
 package org.usfirst.frc.team6851.robot.commands.driving;
 
 import org.usfirst.frc.team6851.robot.Constant;
+import org.usfirst.frc.team6851.robot.Dashboard;
 import org.usfirst.frc.team6851.robot.commands.CommandBase;
-import org.usfirst.frc.team6851.robot.subsystems.DriveBase;
 
 public class MoveDistance extends CommandBase {
 	private double distanceInRotation;
@@ -17,6 +17,7 @@ public class MoveDistance extends CommandBase {
 	
 	@Override
 	protected void initialize() {
+		Dashboard.nextAutonomousStep();
 		super.initialize();
 		this.distanceToFinishRight = driveBase.getRightEncoderDistance() + distanceInRotation;
 		this.distanceToFinishLeft = driveBase.getLeftEncoderDistance() + distanceInRotation;
@@ -24,19 +25,21 @@ public class MoveDistance extends CommandBase {
 	
 	@Override
 	protected void execute() {
-		driveBase.drive(speed*Math.signum(distanceInRotation), 0);
+		double s = speed*Math.signum(distanceInRotation);
+		driveBase.drive(s, 0);
+		Dashboard.updateAutonomousStep("Moving at " + s);
 		super.execute();
 	}
 	@Override
 	protected boolean isFinished() {
 		if(Math.signum(distanceInRotation) == 1) {
-			return (driveBase.getRightEncoderDistance()>= distanceToFinishLeft
-					||driveBase.getLeftEncoderDistance()>= distanceToFinishRight);
+			return (driveBase.getRightEncoderDistance() >= distanceToFinishRight
+					||driveBase.getLeftEncoderDistance() >= distanceToFinishLeft);
 			
 		} 
 		else {
-			return (driveBase.getRightEncoderDistance() <= distanceToFinishLeft
-					||driveBase.getLeftEncoderDistance()<= distanceToFinishRight);
+			return (driveBase.getRightEncoderDistance() <= distanceToFinishRight
+					||driveBase.getLeftEncoderDistance() <= distanceToFinishLeft);
 		}
 		
 	}

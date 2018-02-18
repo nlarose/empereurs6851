@@ -48,13 +48,16 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
+		// TODO EFACER MOI !!!!
+		CommandBase.driveBase.leftEncoder.reset();
+		CommandBase.driveBase.rightEncoder.reset();
 	}
 
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
+	
 
 	/**
 	 * This autonomous (along with the chooser code above) shows how to select

@@ -10,6 +10,7 @@ public class TurnToAngleCommand extends CommandBase{
 
 	double	wantedAngle;
 	double	speed;
+	boolean turningLeft;
 	
 	double ajustableSpeedSpeed;
 	boolean isAtAjustableSpeed;
@@ -29,6 +30,7 @@ public class TurnToAngleCommand extends CommandBase{
 		System.out.println(str);
 		isAtAjustableSpeed = false;
 		lastGyroValue = driveBase.getOrientation();
+		turningLeft = wantedAngle < lastGyroValue;
 	}
 
 	@Override
@@ -38,7 +40,7 @@ public class TurnToAngleCommand extends CommandBase{
 		gyroAverage = gyroAverage *(n-1)/n + (currentAngle - lastGyroValue)/n;
 		lastGyroValue = currentAngle;
 		
-		if(Math.abs( currentAngle - wantedAngle) < 30) {
+		if(Math.abs( currentAngle - wantedAngle) < 40) {
 			AjustableSpeedTurn();
 		}else
 			Turn();
@@ -54,14 +56,14 @@ public class TurnToAngleCommand extends CommandBase{
 		//System.out.println("gyroAverage : " + gyroAverage);
 		
 		if(Math.abs(gyroAverage) < 0.15) {
-			//System.out.println("Faster " + ajustableSpeedSpeed);
-			ajustableSpeedSpeed *= 1.01;
+			System.out.println("Faster " + ajustableSpeedSpeed);
+			ajustableSpeedSpeed *= 1.009;
 		}else {
-			//System.out.println("Slower " + ajustableSpeedSpeed);
-			ajustableSpeedSpeed *= 0.99;
+			System.out.println("Slower " + ajustableSpeedSpeed);
+			ajustableSpeedSpeed *= 0.972;
 		}
 				
-		String str = String.format("Turning (ending) with gyro to %.2f degre, currently at %.2f degre", wantedAngle, currentAngle);
+		String str = String.format("Turning (ending) with gyro to %.2f degre, currently at %.2f degre, at speed %.2f", wantedAngle, currentAngle,ajustableSpeedSpeed);
 		Dashboard.updateAutonomousStep(str);
 		
 		driveBase.drive(0, ajustableSpeedSpeed);
@@ -75,9 +77,10 @@ public class TurnToAngleCommand extends CommandBase{
 
 		f = 1 - Math.abs(currentAngle) / Math.abs(wantedAngle);
 		
-		String str = String.format("Turning with gyro to %.2f degre, currently at %.2f degre", wantedAngle, currentAngle);
+		String str = String.format("Turning with gyro to %.2f degre, currently at %.2f degre, at full speed %.2f", wantedAngle, currentAngle, s);
 		Dashboard.updateAutonomousStep(str);
-		f = easeTurn(f);
+		//f = easeTurn(f);
+		f = 1;
 		driveBase.drive(0, s * f);
 		
 		//On garde toujours la derniere vitesse pour commencer smooth sur le ajustableSpeed
@@ -85,11 +88,14 @@ public class TurnToAngleCommand extends CommandBase{
 	}
 	
 	public static double easeTurn(double t) {
-		return t * t * 0.25 + 0.75;
+		return t * t * 0.25 + t/2;
 	}
 
 	protected boolean isFinished() {
-		return Math.abs(driveBase.getOrientation()) > Math.abs(wantedAngle);
+		if(turningLeft)
+			return driveBase.getOrientation() < wantedAngle;
+		else 
+			return driveBase.getOrientation() > wantedAngle;
 	}
 
 	@Override

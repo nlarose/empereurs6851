@@ -25,14 +25,15 @@ public class Dashboard {
 		SmartDashboard.putData("Auto LLL mode", LLLChooser);
 		SmartDashboard.putData("Auto RRR mode", RRRChooser);
 
-		/*AddToAutos("An-Side go to Switch throw near", new AutoSideSwitchNear(false), new AutoSideSwitchNear(true));
+		AddToAutos("An-Side go to Switch throw near", new AutoSideSwitchNear(false), new AutoSideSwitchNear(true));
 		AddToAutos("Am-Side go to Switch throw in middle", new AutoSideSwitchCenter(false), new AutoSideSwitchCenter(true));
 		AddToAutos("Af-Side go to Switch throw far", new AutoSideSwitchFar(false), new AutoSideSwitchFar(true));
 		AddToAutos("Bf-Side exchange fast", new AutoSideExchangeFast(false), new AutoCenterExchange(true));
 		AddToAutos("Bf-Side exchange tight", new AutoSideExchangeTight(false), new AutoSideExchangeTight(true));
 		AddToAutos("C -Just do the line", new AutoSideJustLine(false), new AutoSideJustLine(true));
 		AddToAutos("D -Switch to the side", new AutoSideSwitchSide(false), new AutoSideSwitchSide(true));
-		*/
+		AddToAutos("DANCE", new AutoDance(false), new AutoDance(true));
+		
 		
 		DrivingStyle.addDefault("Dual analog Gamepad", DriveType.DrivingGame);
 		DrivingStyle.addObject("Extreme 3D Pro", DriveType.Joystick);
@@ -53,13 +54,13 @@ public class Dashboard {
 	public static void update() {
 		DriveBase drivebase = CommandBase.driveBase;
 		SmartDashboard.putNumber("Gyro angle", drivebase.getOrientation());
-		SmartDashboard.putBoolean("navx isCalibrating", drivebase.navx.isCalibrating());
+		SmartDashboard.putBoolean("navx isCalibrating", drivebase.isCalibrating());
 		
 		SmartDashboard.putNumber("LeftSensor", drivebase.getLeftSensorDistance());
 		SmartDashboard.putNumber("RightSensor", drivebase.getRightSensorDistance());
 		
-		SmartDashboard.putNumber("Left Motor Encoder", drivebase.getLeftEncoderDistance());
-		SmartDashboard.putNumber("Right Motor Encoder", drivebase.getRightEncoderDistance());
+		SmartDashboard.putNumber("Left Motor Encoder", drivebase.getLeftEncoderDistance() / Constant.ENCODER_ROTATION_PER_INCH);
+		SmartDashboard.putNumber("Right Motor Encoder", drivebase.getRightEncoderDistance() / Constant.ENCODER_ROTATION_PER_INCH);
 		//System.out.println(drivebase.leftEncoder.getRaw() + " , " + drivebase.rightEncoder.getRaw());
 		/*System.out.print(" - Ultrasensor -");
 		if(drivebase.leftSensor != null) 

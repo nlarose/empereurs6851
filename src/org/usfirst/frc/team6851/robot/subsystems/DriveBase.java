@@ -15,10 +15,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveBase extends SubsystemBase {
 	public final DifferentialDrive drive = new DifferentialDrive(new Spark(RobotMap.leftMotor), new Spark(RobotMap.rightMotor));
-	public final AHRS navx = new AHRS(SPI.Port.kMXP);
+	private final AHRS navx = new AHRS(SPI.Port.kMXP);
 	
-	public final Encoder leftEncoder 		= tryInitEncoder(RobotMap.leftMotorEncoderA, RobotMap.leftMotorEncoderB 	, false, "Left  Encoder");
-	public final Encoder rightEncoder 		= tryInitEncoder(RobotMap.rightMotorEncoderA, RobotMap.rightMotorEncoderB 	, true ,"Right Encoder");
+	public final Encoder leftEncoder 		= tryInitEncoder(RobotMap.leftMotorEncoderA, RobotMap.leftMotorEncoderB 	, true, "Left  Encoder");
+	public final Encoder rightEncoder 		= tryInitEncoder(RobotMap.rightMotorEncoderA, RobotMap.rightMotorEncoderB 	, false ,"Right Encoder");
 	
 	public final Ultrasonic leftSensor  	= tryInitSensor(RobotMap.frontLeftSensorEcho, RobotMap.frontLeftSensorTrigger	, "Left  Ultrasonic");
 	public final Ultrasonic rightSensor 	= tryInitSensor(RobotMap.frontRightSensorEcho, RobotMap.frontRightSensorTrigger , "Right Ultrasonic");
@@ -34,6 +34,7 @@ public class DriveBase extends SubsystemBase {
 	@Override
 	protected void initDefaultCommand() {
 		navx.reset();
+		
 		setDefaultCommand(new JoystickDriveCommand());
 	}
 
@@ -50,14 +51,14 @@ public class DriveBase extends SubsystemBase {
 	private double correctRotation(double moveValue, double rotateValue) {
 		if(moveValue == 0) {
 			//Move as normal
-			orientationheading = navx.getAngle();
+			orientationheading = getOrientation() ;
 		}else {
 			if(rotateValue != 0) {
 				// We don't apply correction when the inputed rotation wants to
 				// turn. ( not zero )
-				orientationheading = navx.getAngle();
+				orientationheading = getOrientation() ;
 			}else {
-				double correction = (orientationheading - navx.getAngle() ) * CORRECTION_FACTOR; 
+				double correction = (orientationheading - getOrientation()  ) * CORRECTION_FACTOR; 
 				correction = MathUtils.clamp(correction, -MAX_CORRECTION, MAX_CORRECTION);
 				correction = Math.pow(correction,2);
 				if(Math.abs(correction) < MIN_CORRECTION)
@@ -71,7 +72,7 @@ public class DriveBase extends SubsystemBase {
 
 	
 	public double getOrientation() {
-		return navx.getAngle();
+		return -1 * navx.getAngle();
 	}
 	
 	public double getLeftEncoderDistance() {
@@ -109,6 +110,14 @@ public class DriveBase extends SubsystemBase {
 			return true;
 		else
 			return false;
+	}
+
+	public boolean isCalibrating() {
+		return navx.isCalibrating();
+	}
+
+	public boolean isRotating() {
+		return navx.isRotating();
 	}	
 	
 }

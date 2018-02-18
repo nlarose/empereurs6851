@@ -1,7 +1,5 @@
 package org.usfirst.frc.team6851.robot.commands.driving;
 
-import org.usfirst.frc.team6851.robot.Dashboard;
-
 /**
  * Turns the robot <i>angleOffset</i> degre from the command's start current robot angle.
  * If the robot is at 55 degre when started, and you want to add 40. It will go to 95degre. 
@@ -18,8 +16,8 @@ public class TurnRobotCommand extends TurnToAngleCommand{
 
 	@Override
 	protected void initialize() {
-		wantedAngle = driveBase.navx.getAngle() + angleOffset;
-		Dashboard.nextAutonomousStep();
+		wantedAngle = driveBase.getOrientation()  + angleOffset;
+		super.initialize();
 	}
 
 }

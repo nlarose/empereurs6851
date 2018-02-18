@@ -8,7 +8,7 @@ public class PrintGyroWhenStable extends CommandBase{
 	
 	@Override
 	protected boolean isFinished() {
-		return !driveBase.navx.isRotating();
+		return !driveBase.isRotating();
 	}
 	
 	@Override
