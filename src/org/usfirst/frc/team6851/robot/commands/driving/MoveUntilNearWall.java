@@ -15,7 +15,7 @@ public class MoveUntilNearWall extends CommandBase{
 
 	@Override
 	protected void execute() {
-		driveBase().drive(speed, 0);
+		driveBase.drive(speed, 0);
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class MoveUntilNearWall extends CommandBase{
 	
 	@Override
 	protected void end() {
-		driveBase().stopDriving();
+		driveBase.stopDriving();
 	}
 
 }

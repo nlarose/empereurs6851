@@ -8,21 +8,21 @@ public class SetGrabberDown extends CommandBase {
 
 	public SetGrabberDown(double speed) {
 		Speed = speed;
-		requires(grabber());
+		requires(grabber);
 	}
 
 	@Override
 	protected void execute() {
-		grabber().Lower(Speed);
+		grabber.Lower(Speed);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return grabber().IsAtLowerLimit();
+		return grabber.IsAtLowerLimit();
 	}
 
 	@Override
 	protected void end() {
-		grabber().stopScrewMotor();
+		grabber.stopScrewMotor();
 	}
 }

@@ -6,20 +6,20 @@ import org.usfirst.frc.team6851.robot.commands.CommandBase;
 public class JoystickDriveCommand extends CommandBase {
 
 	public JoystickDriveCommand() {
-		requires(driveBase());
+		requires(driveBase);
 	}
 
 	@Override
 	protected void initialize() {
 		// To avoid the first : Robot Drive... Output not updated often enough.
-		driveBase().stopDriving();
+		driveBase.stopDriving();
 	}
 
 	@Override
 	protected void execute() {
 		double move = Robot.oi.getMoveSpeed();
 		double rotation = Robot.oi.getTurnSpeed();
-		driveBase().drive(move, rotation);
+		driveBase.drive(move, rotation);
 	}
 
 	@Override

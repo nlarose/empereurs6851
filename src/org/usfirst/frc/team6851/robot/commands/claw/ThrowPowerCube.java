@@ -10,12 +10,12 @@ public class ThrowPowerCube extends CommandBase {
 	
 	@Override
 	protected void execute() {
-		grabber().ThrowPowerCube();
+		grabber.ThrowPowerCube();
 	}
 	
 	@Override
 	protected void end() {
-		grabber().stopWheelMotors();
+		grabber.stopWheelMotors();
 	}
 	
 	@Override

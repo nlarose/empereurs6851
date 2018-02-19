@@ -6,8 +6,6 @@ import org.usfirst.frc.team6851.robot.commands.driving.MoveDistance;
 import org.usfirst.frc.team6851.robot.commands.driving.MoveUntilNearWall;
 import org.usfirst.frc.team6851.robot.commands.driving.TurnRobotCommand;
 
-import jdk.nashorn.internal.runtime.regexp.joni.SearchAlgorithm.SLOW_IC;
-
 public class AutoSideSwitchFar extends AutonomousCommand {
 	
 	public AutoSideSwitchFar(boolean angleReversed) {

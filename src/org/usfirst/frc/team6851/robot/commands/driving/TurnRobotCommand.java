@@ -16,7 +16,7 @@ public class TurnRobotCommand extends TurnToAngleCommand{
 
 	@Override
 	protected void initialize() {
-		wantedAngle = driveBase().getOrientation()  + angleOffset;
+		wantedAngle = driveBase.getOrientation()  + angleOffset;
 		super.initialize();
 	}
 

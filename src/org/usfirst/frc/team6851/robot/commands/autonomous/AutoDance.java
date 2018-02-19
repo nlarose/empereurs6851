@@ -10,10 +10,10 @@ public class AutoDance extends AutonomousCommand {
 	public AutoDance(boolean angleReversed) {
 		double angleFactor = angleReversed ? -1 : 1; 
 
-		addSequential(new MoveDistance(1*12, MoveSpeedFast));
-		addSequential(new WaitCommand(0.5));
-		addSequential(new TurnRobotCommand(-45 * angleFactor, MoveSpeedMiddle));
-		addSequential(new WaitCommand(0.5));
+		//addSequential(new MoveDistance(1*12, MoveSpeedFast));
+		//addSequential(new WaitCommand(0.5));
+		addSequential(new TurnRobotCommand(180 * angleFactor, MoveSpeedMiddle));
+		/*addSequential(new WaitCommand(0.5));
 		addSequential(new MoveDistance(3*12,MoveSpeedMiddle));
 		addSequential(new WaitCommand(0.5));
 		addSequential(new TurnRobotCommand(90*angleFactor, MoveSpeedMiddle));
@@ -30,7 +30,7 @@ public class AutoDance extends AutonomousCommand {
 		addSequential(new WaitCommand(0.5));
 		addSequential(new TurnRobotCommand(135*angleFactor, MoveSpeedMiddle));
 		addSequential(new WaitCommand(0.5));
-		addSequential(new MoveDistance(-1*12, MoveSpeedLow));
+		addSequential(new MoveDistance(-1*12, MoveSpeedLow));*/
 		
 	}
 	

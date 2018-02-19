@@ -14,16 +14,17 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveBase extends SubsystemBase {
+
 	public final DifferentialDrive drive = new DifferentialDrive(new Spark(RobotMap.leftMotor),
 			new Spark(RobotMap.rightMotor));
-	private final AHRS navx = null; // = new AHRS(SPI.Port.kMXP);
+	private final AHRS navx = new AHRS(SPI.Port.kMXP);
 
-	public final Encoder leftEncoder = null;//tryInitEncoder(RobotMap.leftMotorEncoderA, RobotMap.leftMotorEncoderB, true, "Left  Encoder");
-	public final Encoder rightEncoder = null;//tryInitEncoder(RobotMap.rightMotorEncoderA, RobotMap.rightMotorEncoderB, false, "Right Encoder");
+	public final Encoder leftEncoder = tryInitEncoder(RobotMap.leftMotorEncoderA, RobotMap.leftMotorEncoderB, true, "Left  Encoder");
+	public final Encoder rightEncoder = tryInitEncoder(RobotMap.rightMotorEncoderA, RobotMap.rightMotorEncoderB, false, "Right Encoder");
 
 	public final Ultrasonic leftSensor = null;//tryInitSensor(RobotMap.frontLeftSensorEcho, RobotMap.frontLeftSensorTrigger, "Left  Ultrasonic");
 	public final Ultrasonic rightSensor  = null;//= tryInitSensor(RobotMap.frontRightSensorEcho, RobotMap.frontRightSensorTrigger, "Right Ultrasonic");
-
+	
 	// HeadingKeeping
 	public boolean correctOrientationWithNavx;
 	public final double CORRECTION_FACTOR = 0.35;

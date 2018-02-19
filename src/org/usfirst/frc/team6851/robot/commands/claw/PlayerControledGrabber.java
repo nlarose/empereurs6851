@@ -9,7 +9,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 public class PlayerControledGrabber extends CommandBase {
 
 	public PlayerControledGrabber() {
-		requires(grabber());
+		requires(grabber);
 	}
 
 	@Override
@@ -19,22 +19,22 @@ public class PlayerControledGrabber extends CommandBase {
 	@Override
 	protected void execute() {
 		double hInput = Robot.oi.screwHeightInput.getInput();
-		grabber().MoveHeight(hInput);
+		grabber.MoveHeight(hInput);
 
 		if (Robot.oi.grabberLeftMotor.get())
-			grabber().grabberMotorLeft.set(ControlMode.PercentOutput, -Constant.GRABBER_WHEEL_GRAB_SPEED);
+			grabber.grabberMotorLeft.set(ControlMode.PercentOutput, -Constant.GRABBER_WHEEL_GRAB_SPEED);
 		else
-			grabber().grabberMotorLeft.set(ControlMode.PercentOutput, 0);
+			grabber.grabberMotorLeft.set(ControlMode.PercentOutput, 0);
 
 		if (Robot.oi.grabberRightMotor.get())
-			grabber().grabberMotorRight.set(ControlMode.PercentOutput, Constant.GRABBER_WHEEL_GRAB_SPEED);
+			grabber.grabberMotorRight.set(ControlMode.PercentOutput, Constant.GRABBER_WHEEL_GRAB_SPEED);
 		else
-			grabber().grabberMotorRight.set(ControlMode.PercentOutput, 0);
+			grabber.grabberMotorRight.set(ControlMode.PercentOutput, 0);
 
-		if (Robot.oi.grabberThrow.get()) {
-			grabber().grabberMotorRight.set(ControlMode.PercentOutput, Constant.GRABBER_WHEEL_THROW_SPEED);
-			grabber().grabberMotorLeft.set(ControlMode.PercentOutput, -Constant.GRABBER_WHEEL_THROW_SPEED);
-		}
+		/*if (Robot.oi.grabberThrow.get()) {
+			grabber.grabberMotorRight.set(ControlMode.PercentOutput, Constant.GRABBER_WHEEL_THROW_SPEED);
+			grabber.grabberMotorLeft.set(ControlMode.PercentOutput, -Constant.GRABBER_WHEEL_THROW_SPEED);
+		}*/
 	}
 
 	@Override

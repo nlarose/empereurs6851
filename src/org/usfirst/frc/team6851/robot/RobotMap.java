@@ -14,7 +14,7 @@ package org.usfirst.frc.team6851.robot;
  * floating around.
  */
 public class RobotMap {
-
+	
 	public static int leftMotor = 1;
 	public static int rightMotor = 0;
 
@@ -29,16 +29,14 @@ public class RobotMap {
 	public static int frontLeftSensorTrigger = 7;
 
 	//grabber 
-	public static int lowerLimitSwitch = 8;
-	public static int upperLimitSwitch = 9;
+	public static int lowerLimitSwitch = 9;
+	public static int upperLimitSwitch = 8;
 	
-	public static int powerCubeInSwitch = 4;
+	public static int powerCubeInSwitch = 10;
 	
 	public static int screwMotor = 1; //Can talon SRX
 	public static int grabberMotorLeft = 2; //Can talon SRX
 	public static int grabberMotorRight = 3; //Can talon SRX
 	public static int screwHeightPotentiometer = 1;
 	
-	
-	//
 }

@@ -1,8 +1,11 @@
 package org.usfirst.frc.team6851.robot.subsystems;
 
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import org.usfirst.frc.team6851.robot.DigitalInputRICHARD;
+
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Ultrasonic.Unit;
@@ -11,9 +14,26 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public abstract class SubsystemBase extends Subsystem {
 
-	protected DigitalInput tryInitDigitalInput(int chanel, String name) {
+
+	
+	protected TalonSRX tryInitTalonSRX(int chanel, boolean inverted, String name) {
 		try {
-			DigitalInput di = new DigitalInput(chanel);
+			TalonSRX talon = new TalonSRX(chanel);
+			talon.setInverted(inverted);
+			return talon;
+		}catch(Exception e) {
+			if (e.getMessage().contains("Code: -1029")) {
+				System.err.println("ERRROR! TalonSRX " + name + " at " + chanel + " is not pluged-in.");
+			} else {
+				System.err.println(e.getMessage());
+			}
+			return null;
+		}
+	}
+	
+	protected DigitalInputRICHARD tryInitDigitalInput(int chanel, String name) {
+		try {
+			DigitalInputRICHARD di = new DigitalInputRICHARD(chanel);
 			return di;
 		} catch (Exception e) {
 			if (e.getMessage().contains("Code: -1029")) {
@@ -25,16 +45,15 @@ public abstract class SubsystemBase extends Subsystem {
 		}
 	}
 
-	protected AnalogPotentiometer tryInitAnalogInput(int chanel, String name) {
+	protected AnalogInput tryInitAnalogInput(int chanel, String name) {
 		try {
-			AnalogPotentiometer ai = new AnalogPotentiometer(chanel);
-			//AnalogInput.setGlobalSampleRate(62500);
+			AnalogInput ai = new AnalogInput(chanel);
+			AnalogInput.setGlobalSampleRate(62500);
 
 			return ai;
 		} catch (Exception e) {
 			if (e.getMessage().contains("Code: -1029")) {
 				System.err.println("ERRROR! AnalogPotentiometer " + name + " at " + chanel + " is not pluged-in.");
-				System.err.println(e.getMessage());
 			} else {
 				System.err.println(e.getMessage());
 			}

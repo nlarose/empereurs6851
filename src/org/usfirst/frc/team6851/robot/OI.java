@@ -11,9 +11,9 @@ import java.util.ArrayList;
 
 import org.usfirst.frc.team6851.robot.commands.claw.SetGrabberDown;
 import org.usfirst.frc.team6851.robot.commands.claw.SetGrabberUp;
+import org.usfirst.frc.team6851.robot.commands.claw.ThrowPowerCube;
 import org.usfirst.frc.team6851.robot.commands.driving.ToggleDriveDirectionCommand;
 import org.usfirst.frc.team6851.robot.commands.driving.ToggleSlowerMoveCommand;
-import org.usfirst.frc.team6851.robot.subsystems.DriveType;
 import org.usfirst.frc.team6851.robot.utils.Extreme3DPro.Extreme3DProButton;
 import org.usfirst.frc.team6851.robot.utils.Gamepad.GamepadAxis;
 import org.usfirst.frc.team6851.robot.utils.Gamepad.GamepadButton;
@@ -31,7 +31,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class OI {
 	
-	private DriveType currentDriveType = DriveType.None;
 	public Joystick joystick1;
 	
 	public AxisInputBase moveInput;
@@ -53,83 +52,27 @@ public class OI {
 	public OI() {
 		//initTestJoystick();
 		joystick1 = new Joystick(0);
-		
-		changeIoTo(Dashboard.DrivingStyle.getSelected());
-	}
 
-	private void changeIoTo(DriveType driveType) {
-		//@ warning for nothing, ca free pas comme il faut!
-		for (JoystickButton joystickButton : buttons) {
-			joystickButton.free();
-		}
-		buttons.clear();
-		
-		if(driveType.equals(DriveType.Joystick)) {
-			initJoystick();
-		}else {
-			initGamePad();
-		}
-	}
-
-	private void initJoystick() {
-		rotateInput = new JoystickInput(joystick1, GamepadAxis.LeftX, 0.1);
-		moveInput = new JoystickInput(joystick1, GamepadAxis.LeftY, 0.1, -1);
-		screwHeightInput = rotateInput = new JoystickInput(joystick1, GamepadAxis.RightY, 0.15);
-		
-		getButton(Extreme3DProButton._11).toggleWhenActive(new ToggleSlowerMoveCommand());
-		getButton(Extreme3DProButton._12).toggleWhenActive(new ToggleDriveDirectionCommand());
-		//getButton(GamepadButton.Start).toggleWhenActive(new ToggleNavxNavigationCommand());
-		
-		currentDriveType = DriveType.Joystick;
-		System.out.println("Switching to Joystick");
+		initGamePad();
 	}
 
 	private void initGamePad() {
 		rotateInput = new JoystickInput(joystick1, GamepadAxis.LeftX, 0.03);
 		moveInput   = new DualInputInput( joystick1, GamepadAxis.LeftTrigger, GamepadAxis.RightTrigger, 0.08 );
-		screwHeightInput = rotateInput = new JoystickInput(joystick1, GamepadAxis.RightY, 0.1);
+		screwHeightInput = new JoystickInput(joystick1, GamepadAxis.RightY, 0.1, -0.75);
 		
 		getButton(GamepadButton.A).toggleWhenActive(new ToggleSlowerMoveCommand());
 		getButton(GamepadButton.B).toggleWhenActive(new ToggleDriveDirectionCommand());
 		//getButton(GamepadButton.Start).toggleWhenActive(new ToggleNavxNavigationCommand());
 		getButton(GamepadButton.X).whenPressed(new SetGrabberDown(0.3));
 		getButton(GamepadButton.Y).whenPressed(new SetGrabberUp(0.3));
+		getButton(GamepadButton.Start).whenPressed(new ThrowPowerCube());
 		
 		grabberLeftMotor = getButton(GamepadButton.LB);
 		grabberRightMotor = getButton(GamepadButton.RB);
-		grabberThrow = getButton(GamepadButton.Start);
+		//grabberThrow = getButton(GamepadButton.Start);
 		
-		currentDriveType = DriveType.DrivingGame;
 		System.out.println("Switching to Gamepad");
-	}
-	
-	private void initTestJoystick() {
-		/*testJoystick = new Joystick(1);
-		getButton(testJoystick,GamepadButton.RB).whenPressed(new OneShotCommandBase() {
-			protected void initialize() { Robot.TEST_UPDATE.moveIndex(1); }
-		});
-		getButton(testJoystick,GamepadButton.LB).whenPressed(new OneShotCommandBase() {
-			protected void initialize() { Robot.TEST_UPDATE.moveIndex(-1); }
-		});
-		getButton(testJoystick,GamepadButton.Start).whenPressed(new OneShotCommandBase() {
-			protected void initialize() { Robot.TEST_UPDATE.startTest(); }
-		});
-		getButton(testJoystick,GamepadButton.Back).whenPressed(new OneShotCommandBase() {
-			protected void initialize() { Robot.TEST_UPDATE.stopTest(); }
-		});
-		getButton(testJoystick,GamepadButton.A).whenPressed(new OneShotCommandBase() {
-			protected void initialize() { Robot.TEST_UPDATE.addValue1(-1); }
-		});
-		getButton(testJoystick,GamepadButton.B).whenPressed(new OneShotCommandBase() {
-			protected void initialize() { Robot.TEST_UPDATE.addValue1(1); }
-		});
-		getButton(testJoystick,GamepadButton.X).whenPressed(new OneShotCommandBase() {
-			protected void initialize() { Robot.TEST_UPDATE.addValue2(-1); }
-		});
-		getButton(testJoystick,GamepadButton.Y).whenPressed(new OneShotCommandBase() {
-			protected void initialize() { Robot.TEST_UPDATE.addValue2(1); }
-		});
-		*/
 	}
 	
 	JoystickButton getButton(Joystick joystick, int buttonValue) {
@@ -180,8 +123,8 @@ public class OI {
 		SmartDashboard.putNumber("moveX", moveInput.getInput());
 		SmartDashboard.putNumber("moveY", rotateInput.getInput());
 		
-		if( ! currentDriveType.equals(Dashboard.DrivingStyle.getSelected()) ) {
+		/*if( ! currentDriveType.equals(Dashboard.DrivingStyle.getSelected()) ) {
 			changeIoTo(Dashboard.DrivingStyle.getSelected());
-		}
+		}*/
 	}
 }

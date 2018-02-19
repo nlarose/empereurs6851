@@ -1,60 +1,51 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package org.usfirst.frc.team6851.robot.subsystems;
 
+import org.usfirst.frc.team6851.robot.Constant;
 import org.usfirst.frc.team6851.robot.RobotMap;
 import org.usfirst.frc.team6851.robot.commands.claw.PlayerControledGrabber;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 
-/**
- * An example subsystem. You can replace me with your own Subsystem.
- */
 public class Grabber extends SubsystemBase {
 
-	public static double SCREW_HEIGHT_UPPER_LIMIT = 0.666;
-	public static double SCREW_HEIGHT_LOWER_LIMIT = 0.42;
+	public static double SCREW_HEIGHT_UPPER_LIMIT = 2600;
+	public static double SCREW_HEIGHT_LOWER_LIMIT = 1610;
 
-	public DigitalInput lowerLimitSwitch = tryInitDigitalInput(RobotMap.lowerLimitSwitch, "LowerLimiteSwitch");
-	public DigitalInput upperLimitSwitch = null;//tryInitDigitalInput(RobotMap.upperLimitSwitch, "UpperLimitSwitch");
-	public DigitalInput powerCubeInSwitch = null;//tryInitDigitalInput(RobotMap.powerCubeInSwitch, "PowerCubeInSwitch");
+	public final DigitalInput lowerLimitSwitch = tryInitDigitalInput(RobotMap.lowerLimitSwitch, "LowerLimiteSwitch");
+	public final DigitalInput upperLimitSwitch = tryInitDigitalInput(RobotMap.upperLimitSwitch, "UpperLimitSwitch");
+	public final DigitalInput powerCubeInSwitch = null; //tryInitDigitalInput(RobotMap.powerCubeInSwitch, "PowerCubeInSwitch");
 	
-	public TalonSRX screwMotor = null; //new TalonSRX(RobotMap.screwMotor);
+	public final TalonSRX screwMotor = tryInitTalonSRX(RobotMap.screwMotor, true, "Screw Motor");
 	
-	public TalonSRX grabberMotorLeft = null;//new TalonSRX(RobotMap.grabberMotorLeft);
-	public TalonSRX grabberMotorRight = null;//new TalonSRX(RobotMap.grabberMotorRight);
-	public AnalogPotentiometer screwHeight = null; //tryInitAnalogInput(RobotMap.screwHeightPotentiometer, "ScrewHeightPotentiometer");
+	public final TalonSRX grabberMotorLeft = tryInitTalonSRX(RobotMap.grabberMotorLeft, false, "Grabber Left");
+	public final TalonSRX grabberMotorRight  = tryInitTalonSRX(RobotMap.grabberMotorRight, false, "Grabber Right");
+	public final AnalogInput screwHeight = tryInitAnalogInput(RobotMap.screwHeightPotentiometer, "ScrewHeightPotentiometer");
 
-	public Grabber() {
-	}
+	
 	
 	@Override
 	protected void initDefaultCommand() {
-		new PlayerControledGrabber().start();
+		setDefaultCommand(new PlayerControledGrabber());
 	}
-	
+
 	public void FeedPowerCube() {
 		grabberMotorLeft.set(ControlMode.PercentOutput, -0.2);
 		grabberMotorRight.set(ControlMode.PercentOutput, -0.2);
 	}
 
 	public void ThrowPowerCube() {
-		grabberMotorLeft.set(ControlMode.PercentOutput, 0.2);
-		grabberMotorRight.set(ControlMode.PercentOutput, 0.2);
+		grabberMotorRight.set(ControlMode.PercentOutput, Constant.GRABBER_WHEEL_THROW_SPEED);
+		grabberMotorLeft.set(ControlMode.PercentOutput, -Constant.GRABBER_WHEEL_THROW_SPEED);
 	}
 
 	public void Raise(double speed) {
-		if (IsAtUpperLimit())
+		if (IsAtUpperLimit()) {
 			screwMotor.set(ControlMode.PercentOutput, 0);
+		}
 		else
 			screwMotor.set(ControlMode.PercentOutput, speed);
 	}
@@ -77,7 +68,7 @@ public class Grabber extends SubsystemBase {
 		if(screwHeight == null)
 			return -1;
 		else 
-			return screwHeight.get();
+			return screwHeight.getValue();
 	}
 	
 	public boolean getLowerLimitSwitch() {
@@ -98,18 +89,17 @@ public class Grabber extends SubsystemBase {
 
 	public boolean IsAtLowerLimit() {
 		return (lowerLimitSwitch != null && lowerLimitSwitch.get())
-				|| (screwHeight != null && screwHeight.get() < SCREW_HEIGHT_LOWER_LIMIT);
+				|| (screwHeight != null && screwHeight.getValue() < SCREW_HEIGHT_LOWER_LIMIT);
 	}
 
 	public boolean IsAtUpperLimit() {
 		return (upperLimitSwitch != null && upperLimitSwitch.get())
-				|| (screwHeight != null && screwHeight.get() > SCREW_HEIGHT_UPPER_LIMIT);
+				|| (screwHeight != null && screwHeight.getValue() > SCREW_HEIGHT_UPPER_LIMIT);
 	}
 
 	public void stopWheelMotors() {
 		grabberMotorLeft.set(ControlMode.PercentOutput, 0);
 		grabberMotorRight.set(ControlMode.PercentOutput, 0);
 	}
-
 
 }

@@ -1,9 +1,16 @@
 package org.usfirst.frc.team6851.robot;
 
 import org.usfirst.frc.team6851.robot.commands.CommandBase;
-import org.usfirst.frc.team6851.robot.commands.autonomous.*;
+import org.usfirst.frc.team6851.robot.commands.autonomous.AutoCenterExchange;
+import org.usfirst.frc.team6851.robot.commands.autonomous.AutoDance;
+import org.usfirst.frc.team6851.robot.commands.autonomous.AutoSideExchangeFast;
+import org.usfirst.frc.team6851.robot.commands.autonomous.AutoSideExchangeTight;
+import org.usfirst.frc.team6851.robot.commands.autonomous.AutoSideJustLine;
+import org.usfirst.frc.team6851.robot.commands.autonomous.AutoSideSwitchCenter;
+import org.usfirst.frc.team6851.robot.commands.autonomous.AutoSideSwitchFar;
+import org.usfirst.frc.team6851.robot.commands.autonomous.AutoSideSwitchNear;
+import org.usfirst.frc.team6851.robot.commands.autonomous.AutoSideSwitchSide;
 import org.usfirst.frc.team6851.robot.subsystems.DriveBase;
-import org.usfirst.frc.team6851.robot.subsystems.DriveType;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.PrintCommand;
@@ -16,7 +23,6 @@ public class Dashboard {
 	public static final SendableChooser<Command> RLRChooser = new SendableChooser<>();
 	public static final SendableChooser<Command> LLLChooser = new SendableChooser<>();
 	public static final SendableChooser<Command> RRRChooser = new SendableChooser<>();
-	public static final SendableChooser<DriveType> DrivingStyle = new SendableChooser<>();
 	
 	private static int autonomousStepIndex = 0;
 	
@@ -38,11 +44,7 @@ public class Dashboard {
 		AddToAutos("B", new PrintCommand("B Left"), new PrintCommand("B Right"));
 		AddToAutos("C", new PrintCommand("C Left"), new PrintCommand("C Right"));
 		AddToAutos("D", new PrintCommand("D Left"), new PrintCommand("D Right"));
-		
-		
-		DrivingStyle.addDefault("Dual analog Gamepad", DriveType.DrivingGame);
-		DrivingStyle.addObject("Extreme 3D Pro", DriveType.Joystick);
-		SmartDashboard.putData("Input device", DrivingStyle);
+
 		
 		resetAutonomousSteps();
 	}
@@ -57,17 +59,17 @@ public class Dashboard {
 	}
 	
 	public static void update() {
-		DriveBase drivebase = CommandBase.driveBase();
+		DriveBase drivebase = CommandBase.driveBase;
 		SmartDashboard.putNumber("Gyro angle", drivebase.getOrientation());
 		SmartDashboard.putBoolean("navx isCalibrating", drivebase.isCalibrating());
 		SmartDashboard.putBoolean("Navx Angle Correction", drivebase.correctOrientationWithNavx);
 		
 
-		SmartDashboard.putNumber("Screw Height", CommandBase.grabber().getScrewHeight());
+		SmartDashboard.putNumber("Screw Height", CommandBase.grabber.getScrewHeight());
 
-		SmartDashboard.putBoolean("Limite switch lower", CommandBase.grabber().getLowerLimitSwitch());
-		SmartDashboard.putBoolean("Limite switch upper", CommandBase.grabber().getUpperLimitSwitch());
-		SmartDashboard.putBoolean("Limite switch powercube", CommandBase.grabber().getPowerCube());
+		SmartDashboard.putBoolean("Limite switch lower", CommandBase.grabber.getLowerLimitSwitch());
+		SmartDashboard.putBoolean("Limite switch upper", CommandBase.grabber.getUpperLimitSwitch());
+		//SmartDashboard.putBoolean("Limite switch powercube", CommandBase.grabber.getPowerCube());
 		
 		
 		SmartDashboard.putNumber("LeftSensor", drivebase.getLeftSensorDistance());
