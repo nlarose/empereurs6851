@@ -6,6 +6,7 @@ import org.usfirst.frc.team6851.robot.subsystems.DriveBase;
 import org.usfirst.frc.team6851.robot.subsystems.DriveType;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.PrintCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -33,6 +34,10 @@ public class Dashboard {
 		AddToAutos("C -Just do the line", new AutoSideJustLine(false), new AutoSideJustLine(true));
 		AddToAutos("D -Switch to the side", new AutoSideSwitchSide(false), new AutoSideSwitchSide(true));
 		AddToAutos("DANCE", new AutoDance(false), new AutoDance(true));
+		AddToAutos("A", new PrintCommand("A Left"), new PrintCommand("A Right"));
+		AddToAutos("B", new PrintCommand("B Left"), new PrintCommand("B Right"));
+		AddToAutos("C", new PrintCommand("C Left"), new PrintCommand("C Right"));
+		AddToAutos("D", new PrintCommand("D Left"), new PrintCommand("D Right"));
 		
 		
 		DrivingStyle.addDefault("Dual analog Gamepad", DriveType.DrivingGame);
@@ -52,9 +57,18 @@ public class Dashboard {
 	}
 	
 	public static void update() {
-		DriveBase drivebase = CommandBase.driveBase;
+		DriveBase drivebase = CommandBase.driveBase();
 		SmartDashboard.putNumber("Gyro angle", drivebase.getOrientation());
 		SmartDashboard.putBoolean("navx isCalibrating", drivebase.isCalibrating());
+		SmartDashboard.putBoolean("Navx Angle Correction", drivebase.correctOrientationWithNavx);
+		
+
+		SmartDashboard.putNumber("Screw Height", CommandBase.grabber().getScrewHeight());
+
+		SmartDashboard.putBoolean("Limite switch lower", CommandBase.grabber().getLowerLimitSwitch());
+		SmartDashboard.putBoolean("Limite switch upper", CommandBase.grabber().getUpperLimitSwitch());
+		SmartDashboard.putBoolean("Limite switch powercube", CommandBase.grabber().getPowerCube());
+		
 		
 		SmartDashboard.putNumber("LeftSensor", drivebase.getLeftSensorDistance());
 		SmartDashboard.putNumber("RightSensor", drivebase.getRightSensorDistance());

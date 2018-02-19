@@ -19,33 +19,33 @@ public class MoveDistance extends CommandBase {
 	protected void initialize() {
 		Dashboard.nextAutonomousStep();
 		super.initialize();
-		this.distanceToFinishRight = driveBase.getRightEncoderDistance() + distanceInRotation;
-		this.distanceToFinishLeft = driveBase.getLeftEncoderDistance() + distanceInRotation;
+		this.distanceToFinishRight = driveBase().getRightEncoderDistance() + distanceInRotation;
+		this.distanceToFinishLeft = driveBase().getLeftEncoderDistance() + distanceInRotation;
 	}
 	
 	@Override
 	protected void execute() {
 		double s = speed*Math.signum(distanceInRotation);
-		driveBase.drive(s, 0);
+		driveBase().drive(s, 0);
 		Dashboard.updateAutonomousStep("Moving at " + s);
 		super.execute();
 	}
 	@Override
 	protected boolean isFinished() {
 		if(Math.signum(distanceInRotation) == 1) {
-			return (driveBase.getRightEncoderDistance() >= distanceToFinishRight
-					||driveBase.getLeftEncoderDistance() >= distanceToFinishLeft);
+			return (driveBase().getRightEncoderDistance() >= distanceToFinishRight
+					||driveBase().getLeftEncoderDistance() >= distanceToFinishLeft);
 			
 		} 
 		else {
-			return (driveBase.getRightEncoderDistance() <= distanceToFinishRight
-					||driveBase.getLeftEncoderDistance() <= distanceToFinishLeft);
+			return (driveBase().getRightEncoderDistance() <= distanceToFinishRight
+					||driveBase().getLeftEncoderDistance() <= distanceToFinishLeft);
 		}
 		
 	}
 	@Override
 	protected void end() {
-		driveBase.drive(0,0);
+		driveBase().drive(0,0);
 		super.end();
 	}
 

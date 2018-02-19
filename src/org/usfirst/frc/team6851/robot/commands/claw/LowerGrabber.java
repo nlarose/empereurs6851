@@ -5,12 +5,12 @@ import org.usfirst.frc.team6851.robot.commands.CommandBase;
 public class LowerGrabber extends CommandBase {
 
 	public LowerGrabber() {
-		requires(grabber);
+		requires(grabber());
 	}
 	
 	@Override
 	protected void execute() {
-		grabber.Lower(0.2);
+		grabber().Lower(0.2);
 	}
 	
 	@Override
@@ -20,6 +20,6 @@ public class LowerGrabber extends CommandBase {
 	
 	@Override
 	protected void end() {
-		grabber.stopScrewMotor();
+		grabber().stopScrewMotor();
 	}
 }

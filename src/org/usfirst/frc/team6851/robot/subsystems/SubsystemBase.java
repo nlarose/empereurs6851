@@ -1,6 +1,6 @@
 package org.usfirst.frc.team6851.robot.subsystems;
 
-import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -25,15 +25,16 @@ public abstract class SubsystemBase extends Subsystem {
 		}
 	}
 
-	protected AnalogInput tryInitAnalogInput(int chanel, String name) {
+	protected AnalogPotentiometer tryInitAnalogInput(int chanel, String name) {
 		try {
-			AnalogInput ai = new AnalogInput(chanel);
-			AnalogInput.setGlobalSampleRate(62500);
+			AnalogPotentiometer ai = new AnalogPotentiometer(chanel);
+			//AnalogInput.setGlobalSampleRate(62500);
 
 			return ai;
 		} catch (Exception e) {
 			if (e.getMessage().contains("Code: -1029")) {
-				System.err.println("ERRROR! DigitalInput " + name + " at " + chanel + " is not pluged-in.");
+				System.err.println("ERRROR! AnalogPotentiometer " + name + " at " + chanel + " is not pluged-in.");
+				System.err.println(e.getMessage());
 			} else {
 				System.err.println(e.getMessage());
 			}

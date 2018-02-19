@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import org.usfirst.frc.team6851.robot.commands.claw.SetGrabberDown;
 import org.usfirst.frc.team6851.robot.commands.claw.SetGrabberUp;
 import org.usfirst.frc.team6851.robot.commands.driving.ToggleDriveDirectionCommand;
-import org.usfirst.frc.team6851.robot.commands.driving.ToggleNavxNavigationCommand;
 import org.usfirst.frc.team6851.robot.commands.driving.ToggleSlowerMoveCommand;
 import org.usfirst.frc.team6851.robot.subsystems.DriveType;
 import org.usfirst.frc.team6851.robot.utils.Extreme3DPro.Extreme3DProButton;
@@ -75,7 +74,7 @@ public class OI {
 	private void initJoystick() {
 		rotateInput = new JoystickInput(joystick1, GamepadAxis.LeftX, 0.1);
 		moveInput = new JoystickInput(joystick1, GamepadAxis.LeftY, 0.1, -1);
-		screwHeightInput = rotateInput = new JoystickInput(joystick1, GamepadAxis.RightY, 0.1);
+		screwHeightInput = rotateInput = new JoystickInput(joystick1, GamepadAxis.RightY, 0.15);
 		
 		getButton(Extreme3DProButton._11).toggleWhenActive(new ToggleSlowerMoveCommand());
 		getButton(Extreme3DProButton._12).toggleWhenActive(new ToggleDriveDirectionCommand());
@@ -88,6 +87,7 @@ public class OI {
 	private void initGamePad() {
 		rotateInput = new JoystickInput(joystick1, GamepadAxis.LeftX, 0.03);
 		moveInput   = new DualInputInput( joystick1, GamepadAxis.LeftTrigger, GamepadAxis.RightTrigger, 0.08 );
+		screwHeightInput = rotateInput = new JoystickInput(joystick1, GamepadAxis.RightY, 0.1);
 		
 		getButton(GamepadButton.A).toggleWhenActive(new ToggleSlowerMoveCommand());
 		getButton(GamepadButton.B).toggleWhenActive(new ToggleDriveDirectionCommand());

@@ -14,54 +14,56 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveBase extends SubsystemBase {
-	public final DifferentialDrive drive = new DifferentialDrive(new Spark(RobotMap.leftMotor), new Spark(RobotMap.rightMotor));
-	private final AHRS navx = new AHRS(SPI.Port.kMXP);
-	
-	public final Encoder leftEncoder 		= tryInitEncoder(RobotMap.leftMotorEncoderA, RobotMap.leftMotorEncoderB 	, true, "Left  Encoder");
-	public final Encoder rightEncoder 		= tryInitEncoder(RobotMap.rightMotorEncoderA, RobotMap.rightMotorEncoderB 	, false ,"Right Encoder");
-	
-	public final Ultrasonic leftSensor  	= tryInitSensor(RobotMap.frontLeftSensorEcho, RobotMap.frontLeftSensorTrigger	, "Left  Ultrasonic");
-	public final Ultrasonic rightSensor 	= tryInitSensor(RobotMap.frontRightSensorEcho, RobotMap.frontRightSensorTrigger , "Right Ultrasonic");
-	
+	public final DifferentialDrive drive = new DifferentialDrive(new Spark(RobotMap.leftMotor),
+			new Spark(RobotMap.rightMotor));
+	private final AHRS navx = null; // = new AHRS(SPI.Port.kMXP);
+
+	public final Encoder leftEncoder = null;//tryInitEncoder(RobotMap.leftMotorEncoderA, RobotMap.leftMotorEncoderB, true, "Left  Encoder");
+	public final Encoder rightEncoder = null;//tryInitEncoder(RobotMap.rightMotorEncoderA, RobotMap.rightMotorEncoderB, false, "Right Encoder");
+
+	public final Ultrasonic leftSensor = null;//tryInitSensor(RobotMap.frontLeftSensorEcho, RobotMap.frontLeftSensorTrigger, "Left  Ultrasonic");
+	public final Ultrasonic rightSensor  = null;//= tryInitSensor(RobotMap.frontRightSensorEcho, RobotMap.frontRightSensorTrigger, "Right Ultrasonic");
+
 	// HeadingKeeping
 	public boolean correctOrientationWithNavx;
 	public final double CORRECTION_FACTOR = 0.35;
 	public final double MAX_CORRECTION = 0.6;
 	public final double MIN_CORRECTION = 0.05;
-	
+
 	double orientationheading = 0;
-	
+
 	@Override
 	protected void initDefaultCommand() {
-		navx.reset();
-		
+		if (navx != null)
+			navx.reset();
+
 		setDefaultCommand(new JoystickDriveCommand());
 	}
 
 	public void stopDriving() {
 		drive.arcadeDrive(0, 0);
 	}
-	
+
 	public void drive(double moveValue, double rotateValue) {
-		if(correctOrientationWithNavx)
+		if (correctOrientationWithNavx)
 			rotateValue = correctRotation(moveValue, rotateValue);
 		drive.arcadeDrive(moveValue, rotateValue);
 	}
 
 	private double correctRotation(double moveValue, double rotateValue) {
-		if(moveValue == 0) {
-			//Move as normal
-			orientationheading = getOrientation() ;
-		}else {
-			if(rotateValue != 0) {
+		if (moveValue == 0) {
+			// Move as normal
+			orientationheading = getOrientation();
+		} else {
+			if (rotateValue != 0) {
 				// We don't apply correction when the inputed rotation wants to
 				// turn. ( not zero )
-				orientationheading = getOrientation() ;
-			}else {
-				double correction = (orientationheading - getOrientation()  ) * CORRECTION_FACTOR; 
+				orientationheading = getOrientation();
+			} else {
+				double correction = (orientationheading - getOrientation()) * CORRECTION_FACTOR;
 				correction = MathUtils.clamp(correction, -MAX_CORRECTION, MAX_CORRECTION);
-				correction = Math.pow(correction,2);
-				if(Math.abs(correction) < MIN_CORRECTION)
+				correction = Math.pow(correction, 2);
+				if (Math.abs(correction) < MIN_CORRECTION)
 					correction = 0;
 				rotateValue += correction;
 				SmartDashboard.putNumber("correction", correction);
@@ -70,54 +72,62 @@ public class DriveBase extends SubsystemBase {
 		return rotateValue;
 	}
 
-	
 	public double getOrientation() {
-		return -1 * navx.getAngle();
+		if (navx != null)
+			return -1 * navx.getAngle();
+		else
+			return 0;
 	}
-	
+
 	public double getLeftEncoderDistance() {
-		if(leftEncoder != null)
+		if (leftEncoder != null)
 			return leftEncoder.get();
 		else
 			return 0;
 	}
-	
+
 	public double getRightEncoderDistance() {
-		if(rightEncoder != null)
+		if (rightEncoder != null)
 			return rightEncoder.get();
 		else
 			return 0;
 	}
-	
+
 	public double getLeftSensorDistance() {
-		if(leftSensor != null)
+		if (leftSensor != null)
 			return leftSensor.pidGet();
 		else
-			return 0; //@rebustness If there is no sensor, what do we wan? Infinit distance, negatif?
+			return 0; // @rebustness If there is no sensor, what do we wan? Infinit distance, negatif?
 	}
-	
+
 	public double getRightSensorDistance() {
-		if(rightSensor != null)
+		if (rightSensor != null)
 			return rightSensor.pidGet();
 		else
 			return 0;
 	}
-	
+
 	public boolean isUnderWallDistanceOf(double wallNearness) {
-		if(rightSensor != null && rightSensor.pidGet() < wallNearness)
+		if (rightSensor != null && rightSensor.pidGet() < wallNearness)
 			return true;
-		else if(leftSensor != null && leftSensor.pidGet() < wallNearness)
+		else if (leftSensor != null && leftSensor.pidGet() < wallNearness)
 			return true;
 		else
 			return false;
 	}
 
 	public boolean isCalibrating() {
-		return navx.isCalibrating();
+		if (navx != null)
+			return navx.isCalibrating();
+		else
+			return false;
 	}
 
 	public boolean isRotating() {
-		return navx.isRotating();
-	}	
-	
+		if (navx != null)
+			return navx.isRotating();
+		else
+			return false;
+	}
+
 }

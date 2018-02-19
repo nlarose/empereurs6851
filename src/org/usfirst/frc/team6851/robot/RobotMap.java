@@ -32,11 +32,11 @@ public class RobotMap {
 	public static int lowerLimitSwitch = 8;
 	public static int upperLimitSwitch = 9;
 	
-	public static int powerCubeInSwitch = 10;
+	public static int powerCubeInSwitch = 4;
 	
-	public static int screwMotor = 0;
-	public static int grabberMotorLeft = 1;
-	public static int grabberMotorRight = 2;
+	public static int screwMotor = 1; //Can talon SRX
+	public static int grabberMotorLeft = 2; //Can talon SRX
+	public static int grabberMotorRight = 3; //Can talon SRX
 	public static int screwHeightPotentiometer = 1;
 	
 	

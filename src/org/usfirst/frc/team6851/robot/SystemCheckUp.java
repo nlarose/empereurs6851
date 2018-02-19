@@ -3,7 +3,7 @@ package org.usfirst.frc.team6851.robot;
 import java.util.ArrayList;
 
 import org.usfirst.frc.team6851.robot.commands.CommandBase;
-import org.usfirst.frc.team6851.robot.systemCheckUp.AnalogInputChecker;
+import org.usfirst.frc.team6851.robot.systemCheckUp.AnalogPotentiometerInputChecker;
 import org.usfirst.frc.team6851.robot.systemCheckUp.DigitalInputChecker;
 import org.usfirst.frc.team6851.robot.systemCheckUp.EncoderChecker;
 import org.usfirst.frc.team6851.robot.systemCheckUp.ItemCheckUp;
@@ -20,15 +20,15 @@ public class SystemCheckUp {
 		AllGo = false;
 		SmartDashboard.putBoolean("Checkup All Go", false);
 		
-		checkup.add(new DigitalInputChecker(CommandBase.grabber.lowerLimitSwitch, "Lower Limit Switch Check"));
-		checkup.add(new DigitalInputChecker(CommandBase.grabber.upperLimitSwitch, "Upper Limit Switch Check"));
-		checkup.add(new DigitalInputChecker(CommandBase.grabber.powerCubeInSwitch, "Power Cube In Check"));
-		checkup.add(new AnalogInputChecker(CommandBase.grabber.screwHeight, "Scew Height Checker"));
+		checkup.add(new DigitalInputChecker(CommandBase.grabber().lowerLimitSwitch, "Lower Limit Switch Check"));
+		checkup.add(new DigitalInputChecker(CommandBase.grabber().upperLimitSwitch, "Upper Limit Switch Check"));
+		checkup.add(new DigitalInputChecker(CommandBase.grabber().powerCubeInSwitch, "Power Cube In Check"));
+		checkup.add(new AnalogPotentiometerInputChecker(CommandBase.grabber().screwHeight, "Scew Height Checker"));
 		
-		checkup.add(new EncoderChecker(CommandBase.driveBase.leftEncoder, "Left Encoder Checker"));
-		checkup.add(new EncoderChecker(CommandBase.driveBase.rightEncoder, "Right Encoder Checker"));
-		checkup.add(new UltrasonicChecker(CommandBase.driveBase.leftSensor, "Left Sensor Checker"));
-		checkup.add(new UltrasonicChecker(CommandBase.driveBase.rightSensor, "Right Sensor Checker"));
+		checkup.add(new EncoderChecker(CommandBase.driveBase().leftEncoder, "Left Encoder Checker"));
+		checkup.add(new EncoderChecker(CommandBase.driveBase().rightEncoder, "Right Encoder Checker"));
+		checkup.add(new UltrasonicChecker(CommandBase.driveBase().leftSensor, "Left Sensor Checker"));
+		checkup.add(new UltrasonicChecker(CommandBase.driveBase().rightSensor, "Right Sensor Checker"));
 	}
 
 	public static void update() {

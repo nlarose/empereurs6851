@@ -8,8 +8,8 @@ public class DigitalInputChecker extends ItemCheckUp{
 	public DigitalInput di;
 	public String DashboardKey;
 	
-	boolean falseHappen;
-	boolean trueHappen;
+	boolean falseHappen = false;
+	boolean trueHappen = false;
 	
 	public DigitalInputChecker(DigitalInput di, String dashboardKey) {
 		this.di = di;

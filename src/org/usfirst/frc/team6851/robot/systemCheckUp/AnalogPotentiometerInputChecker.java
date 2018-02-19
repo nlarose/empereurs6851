@@ -1,27 +1,27 @@
 package org.usfirst.frc.team6851.robot.systemCheckUp;
 
-import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class AnalogInputChecker extends ItemCheckUp{
+public class AnalogPotentiometerInputChecker extends ItemCheckUp{
 
-	public AnalogInput ai;
+	public AnalogPotentiometer pot;
 	public String DashboardKey;
 	
 	double baseValue;
 	boolean Changed;
 	
-	public AnalogInputChecker(AnalogInput ai, String key) {
+	public AnalogPotentiometerInputChecker(AnalogPotentiometer pot, String key) {
 		super();
-		this.ai = ai;
+		this.pot = pot;
 		this.DashboardKey = key;
-		if(ai!= null)
-			baseValue  = ai.getVoltage();
+		if(pot!= null)
+			baseValue  = pot.get();
 	}
 
 	@Override
 	public void Update() {
-		if(ai != null && baseValue != ai.getVoltage())
+		if(pot != null && baseValue != pot.get())
 			Changed = true;
 	}
 	
