@@ -32,7 +32,7 @@ public class AutoASwitchNearThenPCZone extends AutonomousCommand {
 		addSequential(new WaitForRobotNotRotating());
 		addSequential(new TurnRobotCommand(90 * angleFactor, TurnSpeedSlow));
 		
-		//addParallel(new SetGrabberDown(Constant.SCREW_AUTO_SPEED));
+		addParallel(new SetGrabberDown(Constant.SCREW_AUTO_SPEED));
 		addParallel(new MoveDistance(3*12, MoveSpeedMiddle));
 		
 		addSequential(new TurnRobotCommand(-90 * angleFactor, TurnSpeedSlow));

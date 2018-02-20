@@ -17,7 +17,7 @@ public class Grabber extends SubsystemBase {
 
 	public final DigitalInput lowerLimitSwitch = tryInitDigitalInput(RobotMap.lowerLimitSwitch, "LowerLimiteSwitch");
 	public final DigitalInput upperLimitSwitch = tryInitDigitalInput(RobotMap.upperLimitSwitch, "UpperLimitSwitch");
-	public final DigitalInput powerCubeInSwitch = null; //tryInitDigitalInput(RobotMap.powerCubeInSwitch, "PowerCubeInSwitch");
+	public final DigitalInput powerCubeInSwitch = tryInitDigitalInput(RobotMap.powerCubeInSwitch, "PowerCubeInSwitch");
 	
 	public final TalonSRX screwMotor = tryInitTalonSRX(RobotMap.screwMotor, true, "Screw Motor");
 	

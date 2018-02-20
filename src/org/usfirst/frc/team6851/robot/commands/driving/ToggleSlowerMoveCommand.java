@@ -10,9 +10,9 @@ public class ToggleSlowerMoveCommand extends CommandBase{
 	@Override
 	protected void initialize() {
 		if(isInSlowMode)
-			Robot.oi.driveSpeedFactor *= 1.5;
+			Robot.oi.driveSpeedFactor *= 1.2;
 		else
-			Robot.oi.driveSpeedFactor /= 1.5;
+			Robot.oi.driveSpeedFactor /= 1.2;
 		isInSlowMode = !isInSlowMode;
 	}
 		

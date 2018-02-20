@@ -47,7 +47,7 @@ public class OI {
 	public JoystickButton grabberThrow;
 	
 	public boolean reverseDriveDirection = false;
-	public double driveSpeedFactor = 0.6;
+	public double driveSpeedFactor = 0.7;
 	
 	private double t;
 	private long lastUpdate;
@@ -64,7 +64,7 @@ public class OI {
 	private void initGamePad() {
 		rotateInput = new JoystickInput(joystick1, GamepadAxis.LeftX, 0.03);
 		moveInput   = new DualInputInput( joystick1, GamepadAxis.LeftTrigger, GamepadAxis.RightTrigger, 0.08 );
-		screwHeightInput = new JoystickInput(joystick1, GamepadAxis.RightY, 0.1, -0.9);
+		screwHeightInput = new JoystickInput(joystick1, GamepadAxis.RightY, 0.1, -0.95);
 		
 		getButton(GamepadButton.LB).toggleWhenActive(new ToggleSlowerMoveCommand());
 		getButton(GamepadButton.RB).toggleWhenActive(new ToggleDriveDirectionCommand());

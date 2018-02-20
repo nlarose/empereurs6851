@@ -86,7 +86,7 @@ public class Dashboard {
 
 		SmartDashboard.putBoolean("Limite switch lower", CommandBase.grabber.getLowerLimitSwitch());
 		SmartDashboard.putBoolean("Limite switch upper", CommandBase.grabber.getUpperLimitSwitch());
-		//SmartDashboard.putBoolean("Limite switch powercube", CommandBase.grabber.getPowerCube());
+		SmartDashboard.putBoolean("Limite switch powercube", CommandBase.grabber.getPowerCube());
 		
 		
 		
