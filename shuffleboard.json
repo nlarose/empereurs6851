@@ -1,5 +1,5 @@
 {
-  "dividerPosition": 0.1668421052631579,
+  "dividerPosition": 0.17,
   "tabPane": [
     {
       "title": "Calibration",
@@ -42,6 +42,35 @@
                   "_title": "SmartDashboard/Gyro angle"
                 }
               ]
+            }
+          },
+          "6,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Number Bar",
+              "_source0": "network_table:///SmartDashboard/correction",
+              "_title": "SmartDashboard/correction",
+              "min": -1.0,
+              "max": 1.0,
+              "center": 0.0,
+              "numTickMarks": 5.0,
+              "showText": true
+            }
+          },
+          "8,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/correctOrientationWithNavx",
+              "_title": "SmartDashboard/correctOrientationWithNavx",
+              "colorWhenTrue": "#7CFC00FF",
+              "colorWhenFalse": "#8B0000FF"
             }
           }
         }

@@ -21,6 +21,7 @@ public class TurnToAngleCommand extends CommandBase {
 	MotorEasing motorEasing = new MotorEasing();
 
 	public TurnToAngleCommand(double wantedAngle, double speed) {
+		requires(driveBase);
 		this.speed = speed;
 		this.wantedAngle = wantedAngle;
 	}
@@ -28,18 +29,20 @@ public class TurnToAngleCommand extends CommandBase {
 	@Override
 	protected void initialize() {
 
-		Dashboard.nextAutonomousStep();
-		String str = String.format("Turning with gyro to %f degre", wantedAngle);
-		Dashboard.updateAutonomousStep(str);
 		lastGyroValue = driveBase.getOrientation();
 		startingAngle = lastGyroValue;
 		turningLeft = wantedAngle < lastGyroValue;
 		direction = Math.signum(wantedAngle - lastGyroValue	);
-		
-		if (Math.abs(wantedAngle) > 90)
+		if (Math.abs(wantedAngle) > 90) {
 			wantedAngle -= 10 * direction;
-		else if (Math.abs(wantedAngle) > 45)
+		} else if (Math.abs(wantedAngle) > 45) {
 			wantedAngle -= 5 * direction;
+		}
+		motorEasing.reset();
+		
+		Dashboard.nextAutonomousStep();
+		String str = String.format("Turning with gyro From %.1fto %.1f degre",lastGyroValue, wantedAngle);
+		Dashboard.updateAutonomousStep(str);
 	}
 
 	@Override
@@ -47,7 +50,7 @@ public class TurnToAngleCommand extends CommandBase {
 		double currentAngle = driveBase.getOrientation();
 		double t = (currentAngle - startingAngle) / (wantedAngle - startingAngle);
 
-		double s = motorEasing.Ease(t, currentAngle);
+		double s = motorEasing.Ease(t, speed);
 		
 		s *= direction;
 

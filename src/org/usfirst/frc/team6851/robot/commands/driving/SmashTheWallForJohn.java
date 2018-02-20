@@ -11,6 +11,10 @@ public class SmashTheWallForJohn extends CommandBase {
 	double LastEncoderLeft;
 	double LastEncoderRight;
 	
+	public SmashTheWallForJohn() {
+		requires(driveBase);
+	}
+	
 	@Override
 	protected void initialize() {
 		AverageLeft = 10;

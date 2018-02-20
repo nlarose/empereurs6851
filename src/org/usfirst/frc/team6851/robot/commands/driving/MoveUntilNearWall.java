@@ -9,6 +9,7 @@ public class MoveUntilNearWall extends CommandBase{
 	
 	
 	public MoveUntilNearWall(double targetDistanceInInchs, double speed) {
+		requires(driveBase);
 		this.targetDistance = targetDistanceInInchs;
 		this.speed = speed;
 	}

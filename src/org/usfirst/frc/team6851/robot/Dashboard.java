@@ -1,20 +1,12 @@
 package org.usfirst.frc.team6851.robot;
 
 import org.usfirst.frc.team6851.robot.commands.CommandBase;
-import org.usfirst.frc.team6851.robot.commands.autonomous.AutoCenterExchange;
-import org.usfirst.frc.team6851.robot.commands.autonomous.AutoDance;
-import org.usfirst.frc.team6851.robot.commands.autonomous.AutoSideExchangeFast;
-import org.usfirst.frc.team6851.robot.commands.autonomous.AutoSideExchangeTight;
-import org.usfirst.frc.team6851.robot.commands.autonomous.AutoSideJustLine;
-import org.usfirst.frc.team6851.robot.commands.autonomous.AutoSideSwitchCenter;
-import org.usfirst.frc.team6851.robot.commands.autonomous.AutoSideSwitchFar;
-import org.usfirst.frc.team6851.robot.commands.autonomous.AutoSideSwitchNear;
-import org.usfirst.frc.team6851.robot.commands.autonomous.AutoSideSwitchSide;
+import org.usfirst.frc.team6851.robot.commands.autonomous.*;
+import org.usfirst.frc.team6851.robot.commands.oldAuto.AutoDance;
 import org.usfirst.frc.team6851.robot.subsystems.DriveBase;
 import org.usfirst.frc.team6851.robot.utils.SmarterDashboard;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.PrintCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -43,30 +35,44 @@ public class Dashboard {
 		SmartDashboard.putData("Auto RRR mode", RRRChooser);
 		
 
-		AddToAutos("An-Side go to Switch throw near", new AutoSideSwitchNear(false), new AutoSideSwitchNear(true));
-		AddToAutos("Am-Side go to Switch throw in middle", new AutoSideSwitchCenter(false), new AutoSideSwitchCenter(true));
-		AddToAutos("Af-Side go to Switch throw far", new AutoSideSwitchFar(false), new AutoSideSwitchFar(true));
-		AddToAutos("Bf-Side exchange fast", new AutoSideExchangeFast(false), new AutoCenterExchange(true));
-		AddToAutos("Bf-Side exchange tight", new AutoSideExchangeTight(false), new AutoSideExchangeTight(true));
-		AddToAutos("C -Just do the line", new AutoSideJustLine(false), new AutoSideJustLine(true));
-		AddToAutos("D -Switch to the side", new AutoSideSwitchSide(false), new AutoSideSwitchSide(true));
-		AddToAutos("DANCE", new AutoDance(false), new AutoDance(true));
-		AddToAutos("A", new PrintCommand("A Left"), new PrintCommand("A Right"));
-		AddToAutos("B", new PrintCommand("B Left"), new PrintCommand("B Right"));
-		AddToAutos("C", new PrintCommand("C Left"), new PrintCommand("C Right"));
-		AddToAutos("D", new PrintCommand("D Left"), new PrintCommand("D Right"));
+		AddToAutos("An-Side go to Switch throw near", new AutoASwitchNearThenPCZone(false));
+		AddToAutos("Am-Side go to Switch throw in middle", new AutoASwitchCenter(false));
+		AddToAutos("Af-Side go to Switch throw far", new AutoASwitchFarThenPlatZone(false));
+		
+		AddToAutos("Be-Line then Exchange", new AutoBExchange(false));
+		AddToAutos("Bs-Front side then PCZone", new AutoBSwitchSideThenPCZone(false));
+
+		AddToAutos("Ce-Line then Exchange", new AutoCExchange(false));
+		AddToAutos("Cl-Side of Left switch", new AutoCLeftSwitch(false));
+		AddToAutos("Cr-Side of Right switch", new AutoCLeftSwitch(true));
+		
+		AddDefaultToAutos("Just do the line", new AutoJustLine(false));
+
+		AddToAutos("Dn-Side go to Switch throw near", new AutoASwitchNearThenPCZone(true));
+		AddToAutos("Dm-Side go to Switch throw in middle", new AutoASwitchCenter(true));
+		AddToAutos("Df-Side go to Switch throw far", new AutoASwitchFarThenPlatZone(true));
+		
+
+		AddToAutos("Do nothing", new AutoJustLine(false));
+		
+		AddToAutos("DANCE", new AutoDance(false));
 
 		
 		resetAutonomousSteps();
 	}
 	
-	private static void AddToAutos(String name, Command autoCommandLeft, Command autoCommandRight) {
-		LRLChooser.addObject(name, autoCommandLeft);
-		RLRChooser.addObject(name, autoCommandRight);
-		LLLChooser.addObject(name, autoCommandLeft);
-		RRRChooser.addObject(name, autoCommandRight);
-		
-		
+	private static void AddToAutos(String name, Command autoCommand) {
+		LRLChooser.addObject(name, autoCommand);
+		RLRChooser.addObject(name, autoCommand);
+		LLLChooser.addObject(name, autoCommand);
+		RRRChooser.addObject(name, autoCommand);
+	}
+	
+	private static void AddDefaultToAutos(String name, Command autoCommand) {
+		LRLChooser.addDefault(name, autoCommand);
+		RLRChooser.addDefault(name, autoCommand);
+		LLLChooser.addDefault(name, autoCommand);
+		RRRChooser.addDefault(name, autoCommand);
 	}
 	
 	public static void update() {

@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Grabber extends SubsystemBase {
 
-	public static double SCREW_HEIGHT_UPPER_LIMIT = 4000; // 2750
+	public static double SCREW_HEIGHT_UPPER_LIMIT = 3360; // 2750
 	public static double SCREW_HEIGHT_LOWER_LIMIT = 2220; // 1610
 
 	public final DigitalInput lowerLimitSwitch = tryInitDigitalInput(RobotMap.lowerLimitSwitch, "LowerLimiteSwitch");

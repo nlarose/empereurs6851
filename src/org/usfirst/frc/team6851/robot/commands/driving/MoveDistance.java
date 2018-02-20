@@ -11,6 +11,7 @@ public class MoveDistance extends CommandBase {
 	private double speed;
 	
 	public MoveDistance(double distanceInInch, double speed) {
+		requires(driveBase);
 		this.speed = speed;
 		this.distanceInRotation = distanceInInch * Constant.ENCODER_ROTATION_PER_INCH;
 	}
@@ -28,7 +29,6 @@ public class MoveDistance extends CommandBase {
 		double s = speed*Math.signum(distanceInRotation);
 		driveBase.drive(s, 0);
 		Dashboard.updateAutonomousStep("Moving at " + s);
-		super.execute();
 	}
 	@Override
 	protected boolean isFinished() {
@@ -46,7 +46,6 @@ public class MoveDistance extends CommandBase {
 	@Override
 	protected void end() {
 		driveBase.drive(0,0);
-		super.end();
 	}
 
 }

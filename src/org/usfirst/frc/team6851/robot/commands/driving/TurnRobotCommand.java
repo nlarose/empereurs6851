@@ -11,6 +11,7 @@ public class TurnRobotCommand extends TurnToAngleCommand{
 
 	public TurnRobotCommand(double angleOffset, double speed) {
 		super(0,speed);
+		requires(driveBase);
 		this.angleOffset = angleOffset;
 	}
 

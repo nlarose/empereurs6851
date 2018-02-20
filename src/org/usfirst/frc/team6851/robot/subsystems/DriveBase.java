@@ -26,10 +26,12 @@ public class DriveBase extends SubsystemBase {
 	public final Ultrasonic rightSensor  = null;//= tryInitSensor(RobotMap.frontRightSensorEcho, RobotMap.frontRightSensorTrigger, "Right Ultrasonic");
 	
 	// HeadingKeeping
-	public boolean correctOrientationWithNavx;
-	public final double CORRECTION_FACTOR = 0.35;
-	public final double MAX_CORRECTION = 0.6;
-	public final double MIN_CORRECTION = 0.05;
+	public boolean correctOrientationWithNavx = true;
+	public final double CORRECTION_FACTOR_FORWARD = 0.15;
+	public final double CORRECTION_FACTOR_BACKWARD = 0.35;
+	public final double MAX_CORRECTION_FORWARD = 0.2;
+	public final double MAX_CORRECTION_BACKWARD = 0.45;
+	public final double MIN_CORRECTION = 0.02;
 
 	double orientationheading = 0;
 
@@ -46,6 +48,8 @@ public class DriveBase extends SubsystemBase {
 	}
 
 	public void drive(double moveValue, double rotateValue) {
+		SmartDashboard.putBoolean("correctOrientationWithNavx", correctOrientationWithNavx);
+		//System.out.println("Je resoir de " + moveValue + ", " + rotateValue);
 		if (correctOrientationWithNavx)
 			rotateValue = correctRotation(moveValue, rotateValue);
 		drive.arcadeDrive(moveValue, rotateValue);
@@ -55,14 +59,19 @@ public class DriveBase extends SubsystemBase {
 		if (moveValue == 0) {
 			// Move as normal
 			orientationheading = getOrientation();
+			//System.out.println("arrete");
 		} else {
 			if (rotateValue != 0) {
 				// We don't apply correction when the inputed rotation wants to
 				// turn. ( not zero )
 				orientationheading = getOrientation();
+				//System.out.println("mais on tourne pas");
 			} else {
-				double correction = (orientationheading - getOrientation()) * CORRECTION_FACTOR;
-				correction = MathUtils.clamp(correction, -MAX_CORRECTION, MAX_CORRECTION);
+				double factor = (moveValue > 0) ? CORRECTION_FACTOR_FORWARD : CORRECTION_FACTOR_BACKWARD;
+				double maxCorrection = (moveValue > 0) ? MAX_CORRECTION_FORWARD : MAX_CORRECTION_BACKWARD;
+				double correction = (orientationheading - getOrientation()) * factor;
+				//System.out.println("On corrige + " + (orientationheading - getOrientation()));
+				correction = MathUtils.clamp(correction, -maxCorrection, maxCorrection);
 				correction = Math.pow(correction, 2);
 				if (Math.abs(correction) < MIN_CORRECTION)
 					correction = 0;

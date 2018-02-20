@@ -7,8 +7,8 @@
 
 package org.usfirst.frc.team6851.robot;
 
-import org.usfirst.frc.team6851.robot.commands.autonomous.FirstDelay;
-import org.usfirst.frc.team6851.robot.commands.autonomous.SecondDelay;
+import org.usfirst.frc.team6851.robot.commands.FirstDelay;
+import org.usfirst.frc.team6851.robot.commands.SecondDelay;
 import org.usfirst.frc.team6851.robot.systemCheckUp.SystemCheckUp;
 
 import edu.wpi.first.wpilibj.CameraServer;
