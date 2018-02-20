@@ -1,6 +1,6 @@
 package org.usfirst.frc.team6851.robot.subsystems;
 
-import org.usfirst.frc.team6851.robot.DigitalInputRICHARD;
+import org.usfirst.frc.team6851.robot.SmarterDigitalInput;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -31,9 +31,9 @@ public abstract class SubsystemBase extends Subsystem {
 		}
 	}
 	
-	protected DigitalInputRICHARD tryInitDigitalInput(int chanel, String name) {
+	protected SmarterDigitalInput tryInitDigitalInput(int chanel, String name) {
 		try {
-			DigitalInputRICHARD di = new DigitalInputRICHARD(chanel);
+			SmarterDigitalInput di = new SmarterDigitalInput(chanel);
 			return di;
 		} catch (Exception e) {
 			if (e.getMessage().contains("Code: -1029")) {
@@ -48,7 +48,7 @@ public abstract class SubsystemBase extends Subsystem {
 	protected AnalogInput tryInitAnalogInput(int chanel, String name) {
 		try {
 			AnalogInput ai = new AnalogInput(chanel);
-			AnalogInput.setGlobalSampleRate(62500);
+			AnalogInput.setGlobalSampleRate(30);
 
 			return ai;
 		} catch (Exception e) {

@@ -2,9 +2,9 @@ package org.usfirst.frc.team6851.robot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 
-public class DigitalInputRICHARD extends DigitalInput{
+public class SmarterDigitalInput extends DigitalInput{
 
-	public DigitalInputRICHARD(int channel) {
+	public SmarterDigitalInput(int channel) {
 		super(channel);
 	}
 	

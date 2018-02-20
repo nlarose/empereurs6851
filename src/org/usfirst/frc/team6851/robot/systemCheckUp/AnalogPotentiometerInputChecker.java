@@ -16,12 +16,12 @@ public class AnalogPotentiometerInputChecker extends ItemCheckUp{
 		this.pot = pot;
 		this.DashboardKey = key;
 		if(pot!= null)
-			baseValue  = pot.getValue();
+			baseValue  = pot.getVoltage();
 	}
 
 	@Override
 	public void Update() {
-		if(pot != null && baseValue != pot.getValue())
+		if(pot != null && baseValue != pot.getVoltage())
 			Changed = true;
 	}
 	

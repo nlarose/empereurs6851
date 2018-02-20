@@ -2,15 +2,15 @@ package org.usfirst.frc.team6851.robot.commands.claw;
 
 import org.usfirst.frc.team6851.robot.commands.CommandBase;
 
-public class ThrowPowerCube extends CommandBase {
+public class GrabPowerCube extends CommandBase {
 
-	public ThrowPowerCube() {
-		setTimeout(0.75);
+	public GrabPowerCube() {
+		setTimeout(10);
 	}
 	
 	@Override
 	protected void execute() {
-		grabber.ThrowPowerCube();
+		grabber.FeedPowerCube();
 	}
 	
 	@Override
@@ -20,7 +20,7 @@ public class ThrowPowerCube extends CommandBase {
 	
 	@Override
 	protected boolean isFinished() {
-		return isTimedOut();
+		return isTimedOut() || grabber.hasACube();
 	}
 
 }

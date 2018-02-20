@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Grabber extends SubsystemBase {
 
-	public static double SCREW_HEIGHT_UPPER_LIMIT = 2600;
-	public static double SCREW_HEIGHT_LOWER_LIMIT = 1610;
+	public static double SCREW_HEIGHT_UPPER_LIMIT = 4000; // 2750
+	public static double SCREW_HEIGHT_LOWER_LIMIT = 2220; // 1610
 
 	public final DigitalInput lowerLimitSwitch = tryInitDigitalInput(RobotMap.lowerLimitSwitch, "LowerLimiteSwitch");
 	public final DigitalInput upperLimitSwitch = tryInitDigitalInput(RobotMap.upperLimitSwitch, "UpperLimitSwitch");
@@ -33,8 +33,8 @@ public class Grabber extends SubsystemBase {
 	}
 
 	public void FeedPowerCube() {
-		grabberMotorLeft.set(ControlMode.PercentOutput, -0.2);
-		grabberMotorRight.set(ControlMode.PercentOutput, -0.2);
+		grabberMotorLeft.set(ControlMode.PercentOutput, Constant.GRABBER_WHEEL_THROW_SPEED);
+		grabberMotorRight.set(ControlMode.PercentOutput, -Constant.GRABBER_WHEEL_THROW_SPEED);
 	}
 
 	public void ThrowPowerCube() {
@@ -100,6 +100,10 @@ public class Grabber extends SubsystemBase {
 	public void stopWheelMotors() {
 		grabberMotorLeft.set(ControlMode.PercentOutput, 0);
 		grabberMotorRight.set(ControlMode.PercentOutput, 0);
+	}
+
+	public boolean hasACube() {
+		return powerCubeInSwitch != null && powerCubeInSwitch.get();
 	}
 
 }

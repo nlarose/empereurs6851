@@ -9,14 +9,19 @@ package org.usfirst.frc.team6851.robot;
 
 import java.util.ArrayList;
 
+import org.usfirst.frc.team6851.robot.commands.claw.GrabPowerCube;
+import org.usfirst.frc.team6851.robot.commands.claw.SetGrabber;
 import org.usfirst.frc.team6851.robot.commands.claw.SetGrabberDown;
 import org.usfirst.frc.team6851.robot.commands.claw.SetGrabberUp;
 import org.usfirst.frc.team6851.robot.commands.claw.ThrowPowerCube;
+import org.usfirst.frc.team6851.robot.commands.driving.SmashTheWallForJohn;
 import org.usfirst.frc.team6851.robot.commands.driving.ToggleDriveDirectionCommand;
 import org.usfirst.frc.team6851.robot.commands.driving.ToggleSlowerMoveCommand;
 import org.usfirst.frc.team6851.robot.utils.Extreme3DPro.Extreme3DProButton;
 import org.usfirst.frc.team6851.robot.utils.Gamepad.GamepadAxis;
 import org.usfirst.frc.team6851.robot.utils.Gamepad.GamepadButton;
+import org.usfirst.frc.team6851.robot.utils.POVAsJoystickBoutton;
+import org.usfirst.frc.team6851.robot.utils.POVAsJoystickBoutton.POVDirection;
 import org.usfirst.frc.team6851.robot.utils.input.AxisInputBase;
 import org.usfirst.frc.team6851.robot.utils.input.DualInputInput;
 import org.usfirst.frc.team6851.robot.utils.input.JoystickInput;
@@ -59,25 +64,37 @@ public class OI {
 	private void initGamePad() {
 		rotateInput = new JoystickInput(joystick1, GamepadAxis.LeftX, 0.03);
 		moveInput   = new DualInputInput( joystick1, GamepadAxis.LeftTrigger, GamepadAxis.RightTrigger, 0.08 );
-		screwHeightInput = new JoystickInput(joystick1, GamepadAxis.RightY, 0.1, -0.75);
+		screwHeightInput = new JoystickInput(joystick1, GamepadAxis.RightY, 0.1, -0.8);
 		
-		getButton(GamepadButton.A).toggleWhenActive(new ToggleSlowerMoveCommand());
-		getButton(GamepadButton.B).toggleWhenActive(new ToggleDriveDirectionCommand());
+		getButton(GamepadButton.LB).toggleWhenActive(new ToggleSlowerMoveCommand());
+		getButton(GamepadButton.RB).toggleWhenActive(new ToggleDriveDirectionCommand());
 		//getButton(GamepadButton.Start).toggleWhenActive(new ToggleNavxNavigationCommand());
-		getButton(GamepadButton.X).whenPressed(new SetGrabberDown(0.3));
-		getButton(GamepadButton.Y).whenPressed(new SetGrabberUp(0.3));
-		getButton(GamepadButton.Start).whenPressed(new ThrowPowerCube());
+
+		getButton(GamepadButton.X).whenPressed(new ThrowPowerCube());
+		getButton(GamepadButton.Y).toggleWhenPressed(new GrabPowerCube());
+		getButton(GamepadButton.A).toggleWhenPressed(new SmashTheWallForJohn());
 		
-		grabberLeftMotor = getButton(GamepadButton.LB);
-		grabberRightMotor = getButton(GamepadButton.RB);
-		//grabberThrow = getButton(GamepadButton.Start);
+		getPovButton(joystick1, POVDirection.Up).whenPressed(new SetGrabber(1300, 2));  //2600
+		getPovButton(joystick1, POVDirection.Left).whenPressed(new SetGrabber(2050, 2)); //2050
+		getPovButton(joystick1, POVDirection.Down).whenPressed(new SetGrabberDown(Constant.SCREW_AUTO_SPEED));
+		
+		// grabberLeftMotor = getButton(GamepadButton.LB);
+		// grabberRightMotor = getButton(GamepadButton.RB);
+		// grabberThrow = getButton(GamepadButton.Start);
 		
 		System.out.println("Switching to Gamepad");
+	}
+	
+	JoystickButton getPovButton(Joystick joystick, POVDirection direction) {
+		JoystickButton a = new POVAsJoystickBoutton(joystick, 0, direction);
+		buttons.add(a);
+		return a;
 	}
 	
 	JoystickButton getButton(Joystick joystick, int buttonValue) {
 		JoystickButton b = new JoystickButton(joystick, buttonValue);
 		buttons.add(b);
+		
 		return b;
 	}
 

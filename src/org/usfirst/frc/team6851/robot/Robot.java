@@ -7,12 +7,17 @@
 
 package org.usfirst.frc.team6851.robot;
 
+import org.usfirst.frc.team6851.robot.commands.autonomous.FirstDelay;
+import org.usfirst.frc.team6851.robot.commands.autonomous.SecondDelay;
 import org.usfirst.frc.team6851.robot.systemCheckUp.SystemCheckUp;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,7 +30,7 @@ public class Robot extends TimedRobot {
 	public static OI oi;
 
 	Command autonomousCommand;
-
+		boolean GotGameData;
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -35,6 +40,7 @@ public class Robot extends TimedRobot {
 		oi = new OI();
 		Dashboard.init();
 		SystemCheckUp.init();
+		CameraServer.getInstance().startAutomaticCapture();
 	}
 
 	/**
@@ -65,27 +71,77 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		/// TODO A CHECKER TEND QUE C NULL, attendre, ca va evnetuellement arriver.
+		GotGameData = false;
+	}
+
+	private void CheckDriverData() {
 		String gameData = DriverStation.getInstance().getGameSpecificMessage().toUpperCase();
 		if (gameData.length() > 0) {
+			GotGameData = true;
+			Colorize();
 			if (gameData.equals("LLL")) {
-				autonomousCommand = Dashboard.LLLChooser.getSelected();			
+				autonomousCommand = Dashboard.LLLChooser.getSelected();		
+				FirstDelay.Delay = Dashboard.LLLFirstDelay;
+				SecondDelay.Delay = Dashboard.LLLSecondDelay;
+				
 			} else if(gameData.equals("LRL")) {
-				autonomousCommand = Dashboard.LRLChooser.getSelected();			
+				autonomousCommand = Dashboard.LRLChooser.getSelected();	
+				FirstDelay.Delay = Dashboard.LRLFirstDelay;
+				SecondDelay.Delay = Dashboard.LRLSecondDelay;
 			} else if(gameData.equals("RRR")) {
-				autonomousCommand = Dashboard.RRRChooser.getSelected();			
+				autonomousCommand = Dashboard.RRRChooser.getSelected();
+				FirstDelay.Delay = Dashboard.RRRFirstDelay;
+				SecondDelay.Delay = Dashboard.RRRSecondDelay;
 			} else if(gameData.equals("RLR")) {
-				autonomousCommand = Dashboard.RLRChooser.getSelected();			
+				autonomousCommand = Dashboard.RLRChooser.getSelected();	
+				FirstDelay.Delay = Dashboard.RLRFirstDelay;
+				SecondDelay.Delay = Dashboard.RLRSecondDelay;
 			} else {
 				System.out.println("ERROR!!unknown gameData:" + gameData );
 			} 
-		} else {
-			System.out.println("ERROR!!missing gameData!");
-		}
+		} 
 		
 		if (autonomousCommand != null) {
 			autonomousCommand.start();
 		}
+	}
+
+	private void Colorize() {
+		String gameData = DriverStation.getInstance().getGameSpecificMessage().toUpperCase();
+		boolean isRed = DriverStation.getInstance().getAlliance().equals(Alliance.Red);
+		
+		if (gameData.equals("LLL")) {
+			SmartDashboard.putBoolean("colorBox1", isRed);
+			SmartDashboard.putBoolean("colorBox2", !isRed);
+			SmartDashboard.putBoolean("colorBox3", isRed);
+			SmartDashboard.putBoolean("colorBox4", !isRed);
+			SmartDashboard.putBoolean("colorBox5", isRed);
+			SmartDashboard.putBoolean("colorBox6", !isRed);
+			
+		}  else if (gameData.equals("LRL")) {
+			SmartDashboard.putBoolean("colorBox1", isRed);
+			SmartDashboard.putBoolean("colorBox2", !isRed);
+			SmartDashboard.putBoolean("colorBox3", !isRed);
+			SmartDashboard.putBoolean("colorBox4", isRed);
+			SmartDashboard.putBoolean("colorBox5", isRed);
+			SmartDashboard.putBoolean("colorBox6", !isRed);
+		} else if (gameData.equals("RRR")) {
+			SmartDashboard.putBoolean("colorBox1", !isRed);
+			SmartDashboard.putBoolean("colorBox2", isRed);
+			SmartDashboard.putBoolean("colorBox3", !isRed);
+			SmartDashboard.putBoolean("colorBox4", isRed);
+			SmartDashboard.putBoolean("colorBox5", !isRed);
+			SmartDashboard.putBoolean("colorBox6", isRed);
+		} else if (gameData.equals("RLR")) {
+			SmartDashboard.putBoolean("colorBox1", !isRed);
+			SmartDashboard.putBoolean("colorBox2", isRed);
+			SmartDashboard.putBoolean("colorBox3", isRed);
+			SmartDashboard.putBoolean("colorBox4", !isRed);
+			SmartDashboard.putBoolean("colorBox5", !isRed);
+			SmartDashboard.putBoolean("colorBox6", isRed);
+		}
+		
+		
 	}
 
 	/**
@@ -94,6 +150,10 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+
+		if (!GotGameData) {
+			CheckDriverData();
+		}
 	}
 
 	@Override

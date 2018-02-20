@@ -1,5 +1,5 @@
 {
-  "dividerPosition": 0.33631578947368423,
+  "dividerPosition": 0.1668421052631579,
   "tabPane": [
     {
       "title": "Calibration",
@@ -18,19 +18,6 @@
             "content": {
               "_type": "Command",
               "_title": ""
-            }
-          },
-          "0,0": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "Gyro",
-              "_title": "Gyro angle",
-              "majorTickSpace": 45.0,
-              "startAngle": 180.0,
-              "tickMarkRingVisible": true
             }
           },
           "1,3": {
@@ -82,19 +69,6 @@
               "colorWhenFalse": "#8B0000FF"
             }
           },
-          "0,2": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Left Sensor Checker",
-              "_title": "SmartDashboard/Left Sensor Checker",
-              "colorWhenTrue": "#7CFC00FF",
-              "colorWhenFalse": "#8B0000FF"
-            }
-          },
           "4,2": {
             "size": [
               2,
@@ -117,19 +91,6 @@
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/Power Cube In Check",
               "_title": "SmartDashboard/Power Cube In Check",
-              "colorWhenTrue": "#7CFC00FF",
-              "colorWhenFalse": "#8B0000FF"
-            }
-          },
-          "0,3": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Right Sensor Checker",
-              "_title": "SmartDashboard/Right Sensor Checker",
               "colorWhenTrue": "#7CFC00FF",
               "colorWhenFalse": "#8B0000FF"
             }
@@ -208,28 +169,6 @@
               "_title": "SmartDashboard/Right Motor Encoder"
             }
           },
-          "2,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/LeftSensor",
-              "_title": "SmartDashboard/LeftSensor"
-            }
-          },
-          "2,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/RightSensor",
-              "_title": "SmartDashboard/RightSensor"
-            }
-          },
           "6,2": {
             "size": [
               1,
@@ -284,7 +223,7 @@
       }
     },
     {
-      "title": "MATCH",
+      "title": "AUTO",
       "autoPopulate": false,
       "autoPopulatePrefix": "",
       "widgetPane": {
@@ -336,61 +275,6 @@
               "_title": "SmartDashboard/Auto RRR mode"
             }
           },
-          "0,5": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "ComboBox Chooser",
-              "_source0": "network_table:///SmartDashboard/Input device",
-              "_title": "SmartDashboard/Input device"
-            }
-          },
-          "3,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Left Motor Encoder",
-              "_title": "/SmartDashboard/Left Motor Encoder"
-            }
-          },
-          "4,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Right Motor Encoder",
-              "_title": "/SmartDashboard/Right Motor Encoder"
-            }
-          },
-          "3,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/LeftSensor",
-              "_title": "/SmartDashboard/LeftSensor"
-            }
-          },
-          "4,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/RightSensor",
-              "_title": "/SmartDashboard/RightSensor"
-            }
-          },
           "0,4": {
             "size": [
               6,
@@ -400,17 +284,6 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Autonomous Steps",
               "_title": "SmartDashboard/Autonomous Steps"
-            }
-          },
-          "5,1": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Gyro angle",
-              "_title": "SmartDashboard/Gyro angle"
             }
           },
           "7,1": {
@@ -424,6 +297,219 @@
               "_title": "SmartDashboard/Navx Angle Correction",
               "colorWhenTrue": "#7CFC00FF",
               "colorWhenFalse": "#CCCCCCFF"
+            }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LLL First Delay",
+              "_title": "/SmartDashboard/LLL First Delay"
+            }
+          },
+          "3,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LLL Second Delay",
+              "_title": "SmartDashboard/LLL Second Delay"
+            }
+          },
+          "2,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LRL First Delay",
+              "_title": "/SmartDashboard/LRL First Delay"
+            }
+          },
+          "3,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LRL Second Delay",
+              "_title": "SmartDashboard/LRL Second Delay"
+            }
+          },
+          "2,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RLR First Delay",
+              "_title": "/SmartDashboard/RLR First Delay"
+            }
+          },
+          "3,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RLR Second Delay",
+              "_title": "SmartDashboard/RLR Second Delay"
+            }
+          },
+          "2,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RRR First Delay",
+              "_title": "/SmartDashboard/RRR First Delay"
+            }
+          },
+          "3,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/RRR Second Delay",
+              "_title": "SmartDashboard/RRR Second Delay"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "MATCH",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              9,
+              6
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://USB Camera 0",
+              "_title": "USB Camera 0"
+            }
+          },
+          "9,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///FMSInfo/IsRedAlliance",
+              "_title": "Aliance",
+              "colorWhenTrue": "#CC3333FF",
+              "colorWhenFalse": "#4D66CCFF"
+            }
+          },
+          "10,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///FMSInfo/GameSpecificMessage",
+              "_title": "FMSInfo/GameSpecificMessage"
+            }
+          },
+          "9,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/colorBox1",
+              "_title": "SmartDashboard/colorBox1",
+              "colorWhenTrue": "#E64D4DFF",
+              "colorWhenFalse": "#4D66CCFF"
+            }
+          },
+          "10,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/colorBox2",
+              "_title": "SmartDashboard/colorBox2",
+              "colorWhenTrue": "#E64D4DFF",
+              "colorWhenFalse": "#4D66CCFF"
+            }
+          },
+          "9,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/colorBox3",
+              "_title": "SmartDashboard/colorBox3",
+              "colorWhenTrue": "#E64D4DFF",
+              "colorWhenFalse": "#4D66CCFF"
+            }
+          },
+          "10,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/colorBox4",
+              "_title": "SmartDashboard/colorBox4",
+              "colorWhenTrue": "#E64D4DFF",
+              "colorWhenFalse": "#4D66CCFF"
+            }
+          },
+          "9,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/colorBox5",
+              "_title": "SmartDashboard/colorBox5",
+              "colorWhenTrue": "#E64D4DFF",
+              "colorWhenFalse": "#4D66CCFF"
+            }
+          },
+          "10,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/colorBox6",
+              "_title": "SmartDashboard/colorBox6",
+              "colorWhenTrue": "#E64D4DFF",
+              "colorWhenFalse": "#4D66CCFF"
             }
           }
         }

@@ -23,8 +23,6 @@ public class SystemCheckUp {
 		
 		checkup.add(new EncoderChecker(CommandBase.driveBase.leftEncoder, "Left Encoder Checker"));
 		checkup.add(new EncoderChecker(CommandBase.driveBase.rightEncoder, "Right Encoder Checker"));
-		checkup.add(new UltrasonicChecker(CommandBase.driveBase.leftSensor, "Left Sensor Checker"));
-		checkup.add(new UltrasonicChecker(CommandBase.driveBase.rightSensor, "Right Sensor Checker"));
 	}
 
 	public static void update() {

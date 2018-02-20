@@ -6,4 +6,7 @@ public class Constant {
 
 	public static double GRABBER_WHEEL_THROW_SPEED = 1;
 	public static double GRABBER_WHEEL_GRAB_SPEED = -1;
+	
+	public static double SCREW_AUTO_SPEED = 0.8;
+	
 }

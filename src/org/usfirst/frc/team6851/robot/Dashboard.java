@@ -11,6 +11,7 @@ import org.usfirst.frc.team6851.robot.commands.autonomous.AutoSideSwitchFar;
 import org.usfirst.frc.team6851.robot.commands.autonomous.AutoSideSwitchNear;
 import org.usfirst.frc.team6851.robot.commands.autonomous.AutoSideSwitchSide;
 import org.usfirst.frc.team6851.robot.subsystems.DriveBase;
+import org.usfirst.frc.team6851.robot.utils.SmarterDashboard;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.PrintCommand;
@@ -23,6 +24,15 @@ public class Dashboard {
 	public static final SendableChooser<Command> RLRChooser = new SendableChooser<>();
 	public static final SendableChooser<Command> LLLChooser = new SendableChooser<>();
 	public static final SendableChooser<Command> RRRChooser = new SendableChooser<>();
+	public static double LRLFirstDelay;
+	public static double RLRFirstDelay;
+	public static double LLLFirstDelay;
+	public static double RRRFirstDelay;
+	public static double LRLSecondDelay;
+	public static double RLRSecondDelay;
+	public static double LLLSecondDelay;
+	public static double RRRSecondDelay;
+
 	
 	private static int autonomousStepIndex = 0;
 	
@@ -31,6 +41,7 @@ public class Dashboard {
 		SmartDashboard.putData("Auto RLR mode", RLRChooser);
 		SmartDashboard.putData("Auto LLL mode", LLLChooser);
 		SmartDashboard.putData("Auto RRR mode", RRRChooser);
+		
 
 		AddToAutos("An-Side go to Switch throw near", new AutoSideSwitchNear(false), new AutoSideSwitchNear(true));
 		AddToAutos("Am-Side go to Switch throw in middle", new AutoSideSwitchCenter(false), new AutoSideSwitchCenter(true));
@@ -72,19 +83,20 @@ public class Dashboard {
 		//SmartDashboard.putBoolean("Limite switch powercube", CommandBase.grabber.getPowerCube());
 		
 		
-		SmartDashboard.putNumber("LeftSensor", drivebase.getLeftSensorDistance());
-		SmartDashboard.putNumber("RightSensor", drivebase.getRightSensorDistance());
 		
 		SmartDashboard.putNumber("Left Motor Encoder", drivebase.getLeftEncoderDistance() / Constant.ENCODER_ROTATION_PER_INCH);
 		SmartDashboard.putNumber("Right Motor Encoder", drivebase.getRightEncoderDistance() / Constant.ENCODER_ROTATION_PER_INCH);
-		//System.out.println(drivebase.leftEncoder.getRaw() + " , " + drivebase.rightEncoder.getRaw());
-		/*System.out.print(" - Ultrasensor -");
-		if(drivebase.leftSensor != null) 
-			System.out.print(" left:" + drivebase.leftSensor.getRangeInches());
-		if(drivebase.rightSensor != null) 
-			System.out.print(" right:" + drivebase.rightSensor.getRangeInches());
-		System.out.println("");*/
+
 		
+		
+		LRLFirstDelay = SmarterDashboard.GetOrCreate("LRL First Delay", 0);
+		RLRFirstDelay = SmarterDashboard.GetOrCreate("RLR First Delay", 0);
+		LLLFirstDelay = SmarterDashboard.GetOrCreate("LLL First Delay", 0);
+		RRRFirstDelay = SmarterDashboard.GetOrCreate("RRR First Delay", 0);
+		LRLSecondDelay = SmarterDashboard.GetOrCreate("LRL Second Delay", 0);
+		RLRSecondDelay = SmarterDashboard.GetOrCreate("RLR Second Delay", 0);
+		LLLSecondDelay = SmarterDashboard.GetOrCreate("LLL Second Delay", 0);
+		RRRSecondDelay = SmarterDashboard.GetOrCreate("RRR Second Delay", 0);
 	}
 	
 	public static void resetAutonomousSteps() {

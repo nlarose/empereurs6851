@@ -21,7 +21,7 @@ public class PlayerControledGrabber extends CommandBase {
 		double hInput = Robot.oi.screwHeightInput.getInput();
 		grabber.MoveHeight(hInput);
 
-		if (Robot.oi.grabberLeftMotor.get())
+		/*if (Robot.oi.grabberLeftMotor.get())
 			grabber.grabberMotorLeft.set(ControlMode.PercentOutput, -Constant.GRABBER_WHEEL_GRAB_SPEED);
 		else
 			grabber.grabberMotorLeft.set(ControlMode.PercentOutput, 0);
@@ -30,11 +30,7 @@ public class PlayerControledGrabber extends CommandBase {
 			grabber.grabberMotorRight.set(ControlMode.PercentOutput, Constant.GRABBER_WHEEL_GRAB_SPEED);
 		else
 			grabber.grabberMotorRight.set(ControlMode.PercentOutput, 0);
-
-		/*if (Robot.oi.grabberThrow.get()) {
-			grabber.grabberMotorRight.set(ControlMode.PercentOutput, Constant.GRABBER_WHEEL_THROW_SPEED);
-			grabber.grabberMotorLeft.set(ControlMode.PercentOutput, -Constant.GRABBER_WHEEL_THROW_SPEED);
-		}*/
+*/
 	}
 
 	@Override

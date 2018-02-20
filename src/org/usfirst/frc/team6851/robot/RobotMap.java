@@ -23,16 +23,13 @@ public class RobotMap {
 	public static int rightMotorEncoderA = 0;
 	public static int rightMotorEncoderB = 1;
 	
-	public static int frontRightSensorEcho = 4;	
-	public static int frontRightSensorTrigger = 5;
-	public static int frontLeftSensorEcho = 6;
-	public static int frontLeftSensorTrigger = 7;
+
 
 	//grabber 
 	public static int lowerLimitSwitch = 9;
 	public static int upperLimitSwitch = 8;
 	
-	public static int powerCubeInSwitch = 10;
+	public static int powerCubeInSwitch = 4;
 	
 	public static int screwMotor = 1; //Can talon SRX
 	public static int grabberMotorLeft = 2; //Can talon SRX
