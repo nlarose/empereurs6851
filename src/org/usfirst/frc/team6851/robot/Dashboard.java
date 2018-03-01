@@ -55,7 +55,7 @@ public class Dashboard {
 
 		AddToAutos("Do nothing", new AutoJustLine(false));
 		
-		AddToAutos("DANCE", new AutoDance(false));
+		//AddToAutos("DANCE", new AutoDance(false));
 
 		
 		resetAutonomousSteps();

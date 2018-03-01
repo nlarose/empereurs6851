@@ -431,7 +431,7 @@
           "0,0": {
             "size": [
               6,
-              5
+              4
             ],
             "content": {
               "_type": "Camera Stream",
@@ -463,7 +463,7 @@
               "_title": "FMSInfo/GameSpecificMessage"
             }
           },
-          "6,4": {
+          "6,3": {
             "size": [
               1,
               1
@@ -476,7 +476,7 @@
               "colorWhenFalse": "#4D66CCFF"
             }
           },
-          "7,4": {
+          "7,3": {
             "size": [
               1,
               1
@@ -489,7 +489,7 @@
               "colorWhenFalse": "#4D66CCFF"
             }
           },
-          "6,3": {
+          "6,2": {
             "size": [
               1,
               1
@@ -502,7 +502,7 @@
               "colorWhenFalse": "#4D66CCFF"
             }
           },
-          "7,3": {
+          "7,2": {
             "size": [
               1,
               1
@@ -515,7 +515,7 @@
               "colorWhenFalse": "#4D66CCFF"
             }
           },
-          "6,2": {
+          "6,1": {
             "size": [
               1,
               1
@@ -528,7 +528,7 @@
               "colorWhenFalse": "#4D66CCFF"
             }
           },
-          "7,2": {
+          "7,1": {
             "size": [
               1,
               1

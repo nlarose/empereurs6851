@@ -9,6 +9,7 @@ package org.usfirst.frc.team6851.robot;
 
 import java.util.ArrayList;
 
+import org.usfirst.frc.team6851.robot.commands.CancelAllCommandsCommand;
 import org.usfirst.frc.team6851.robot.commands.claw.GrabPowerCube;
 import org.usfirst.frc.team6851.robot.commands.claw.SetGrabber;
 import org.usfirst.frc.team6851.robot.commands.claw.SetGrabberDown;
@@ -63,8 +64,9 @@ public class OI {
 
 	private void initGamePad() {
 		rotateInput = new JoystickInput(joystick1, GamepadAxis.LeftX, 0.03);
+		//moveInput = new JoystickInput(joystick1, GamepadAxis.LeftY, 0.03,-1);
 		moveInput   = new DualInputInput( joystick1, GamepadAxis.LeftTrigger, GamepadAxis.RightTrigger, 0.08 );
-		screwHeightInput = new JoystickInput(joystick1, GamepadAxis.RightY, 0.1, -0.95);
+		screwHeightInput = new JoystickInput(joystick1, GamepadAxis.RightY, 0.1, -1);
 		
 		getButton(GamepadButton.LB).toggleWhenActive(new ToggleSlowerMoveCommand());
 		getButton(GamepadButton.RB).toggleWhenActive(new ToggleDriveDirectionCommand());
@@ -74,8 +76,10 @@ public class OI {
 		getButton(GamepadButton.Y).toggleWhenPressed(new GrabPowerCube());
 		getButton(GamepadButton.A).toggleWhenPressed(new SmashTheWallForJohn());
 		
-		getPovButton(joystick1, POVDirection.Up).whenPressed(new SetGrabber(1300, 2));  //2600
-		getPovButton(joystick1, POVDirection.Left).whenPressed(new SetGrabber(2050, 2)); //2050
+		getButton(GamepadButton.Back).whenPressed(new CancelAllCommandsCommand());
+		
+		getPovButton(joystick1, POVDirection.Up).whenPressed(new SetGrabber(3200, 2));  //2600
+		getPovButton(joystick1, POVDirection.Left).whenPressed(new SetGrabber(2500, 2)); //2050
 		getPovButton(joystick1, POVDirection.Down).whenPressed(new SetGrabberDown(Constant.SCREW_AUTO_SPEED));
 		
 		// grabberLeftMotor = getButton(GamepadButton.LB);

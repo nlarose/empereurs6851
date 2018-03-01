@@ -19,25 +19,25 @@ public class AutoASwitchFarThenPlatZone extends AutonomousCommand {
 		addSequential(new FirstDelay());
 		addSequential(new MoveDistance(1*12, MoveSpeedMiddle));
 		addSequential(new WaitForRobotNotRotating());
-		addSequential(new TurnRobotCommand(-10 * angleFactor, MoveSpeedFast));
+		addSequential(new TurnRobotCommand(-10 * angleFactor, TurnSpeedFast));
 		addSequential(new MoveDistance(13*12, MoveSpeedFast));
 		addSequential(new WaitForRobotNotRotating());
-		addSequential(new TurnRobotCommand(100 * angleFactor, MoveSpeedFast));
+		addSequential(new TurnRobotCommand(100 * angleFactor, TurnSpeedFast));
 		
 		addSequential(new SmashTheWallForJohn());
 		addSequential(new ThrowPowerCube());
 		
 		addSequential(new MoveDistance(-1*12, MoveSpeedMiddle));
 		addSequential(new WaitForRobotNotRotating());
-		addSequential(new TurnRobotCommand(-90 * angleFactor, MoveSpeedFast));
+		addSequential(new TurnRobotCommand(-90 * angleFactor, TurnSpeedFast));
 		
 		addParallel(new SetGrabberDown(Constant.SCREW_AUTO_SPEED));
 		addParallel(new MoveDistance(5*12, MoveSpeedMiddle));
 		
-		addSequential(new TurnRobotCommand(90 * angleFactor, MoveSpeedFast));
+		addSequential(new TurnRobotCommand(90 * angleFactor, TurnSpeedFast));
 		addParallel(new MoveDistance(4*12, MoveSpeedMiddle));
 
-		addSequential(new TurnRobotCommand(90 * angleFactor, MoveSpeedFast));
+		addSequential(new TurnRobotCommand(90 * angleFactor, TurnSpeedFast));
 	}
 	
 }

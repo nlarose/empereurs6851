@@ -26,10 +26,10 @@ public class DriveBase extends SubsystemBase {
 	public final Ultrasonic rightSensor  = null;//= tryInitSensor(RobotMap.frontRightSensorEcho, RobotMap.frontRightSensorTrigger, "Right Ultrasonic");
 	
 	// HeadingKeeping
-	public boolean correctOrientationWithNavx = false;
-	public final double CORRECTION_FACTOR_FORWARD = 0.15;
+	public boolean correctOrientationWithNavx = true;
+	public final double CORRECTION_FACTOR_FORWARD = 0.3;
 	public final double CORRECTION_FACTOR_BACKWARD = 0.35;
-	public final double MAX_CORRECTION_FORWARD = 0.2;
+	public final double MAX_CORRECTION_FORWARD = 0.4;
 	public final double MAX_CORRECTION_BACKWARD = 0.45;
 	public final double MIN_CORRECTION = 0.02;
 
@@ -39,7 +39,6 @@ public class DriveBase extends SubsystemBase {
 	protected void initDefaultCommand() {
 		if (navx != null)
 			navx.reset();
-
 		setDefaultCommand(new JoystickDriveCommand());
 	}
 
