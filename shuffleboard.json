@@ -10,7 +10,7 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "2,1": {
+          "6,2": {
             "size": [
               1,
               1
@@ -71,6 +71,17 @@
               "_title": "SmartDashboard/correctOrientationWithNavx",
               "colorWhenTrue": "#7CFC00FF",
               "colorWhenFalse": "#8B0000FF"
+            }
+          },
+          "3,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/ForceRaiseGrabber",
+              "_title": "SmartDashboard/ForceRaiseGrabber"
             }
           }
         }
@@ -246,6 +257,17 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Screw Height",
               "_title": "SmartDashboard/Screw Height"
+            }
+          },
+          "0,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/ForceRaiseGrabber",
+              "_title": "SmartDashboard/ForceRaiseGrabber"
             }
           }
         }

@@ -16,28 +16,26 @@ public class AutoASwitchFarThenPlatZone extends AutonomousCommand {
 	public AutoASwitchFarThenPlatZone(boolean angleReversed) {
 		double angleFactor = angleReversed ? -1 : 1; 
 
+		
 		addSequential(new FirstDelay());
-		addSequential(new MoveDistance(1*12, MoveSpeedMiddle));
+		addSequential(new MoveDistance(12*12, MoveSpeedFast));
 		addSequential(new WaitForRobotNotRotating());
-		addSequential(new TurnRobotCommand(-10 * angleFactor, TurnSpeedFast));
-		addSequential(new MoveDistance(13*12, MoveSpeedFast));
-		addSequential(new WaitForRobotNotRotating());
-		addSequential(new TurnRobotCommand(100 * angleFactor, TurnSpeedFast));
+		addSequential(new TurnRobotCommand(90 * angleFactor, TurnSpeedSlow));
 		
 		addSequential(new SmashTheWallForJohn());
 		addSequential(new ThrowPowerCube());
 		
 		addSequential(new MoveDistance(-1*12, MoveSpeedMiddle));
 		addSequential(new WaitForRobotNotRotating());
-		addSequential(new TurnRobotCommand(-90 * angleFactor, TurnSpeedFast));
+		addSequential(new TurnRobotCommand(-90 * angleFactor, TurnSpeedSlow));
 		
-		addParallel(new SetGrabberDown(Constant.SCREW_AUTO_SPEED));
-		addParallel(new MoveDistance(5*12, MoveSpeedMiddle));
+		addSequential(new MoveDistance(5*12, MoveSpeedMiddle));
 		
-		addSequential(new TurnRobotCommand(90 * angleFactor, TurnSpeedFast));
-		addParallel(new MoveDistance(4*12, MoveSpeedMiddle));
+		addSequential(new TurnRobotCommand(90 * angleFactor, TurnSpeedSlow));
+		addSequential(new MoveDistance(2*12, MoveSpeedMiddle));
 
-		addSequential(new TurnRobotCommand(90 * angleFactor, TurnSpeedFast));
+		addParallel(new TurnRobotCommand(90 * angleFactor, TurnSpeedSlow));
+		//addParallel(new SetGrabberDown(Constant.SCREW_AUTO_SPEED));
 	}
 	
 }

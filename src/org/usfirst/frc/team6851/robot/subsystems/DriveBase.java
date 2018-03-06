@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveBase extends SubsystemBase {
 
+	private static final double TOO_MUCH_ERROR_DIFF = 0.1;
 	public final DifferentialDrive drive = new DifferentialDrive(new Spark(RobotMap.leftMotor),
 			new Spark(RobotMap.rightMotor));
 	private final AHRS navx = new AHRS(SPI.Port.kMXP);
@@ -34,6 +35,13 @@ public class DriveBase extends SubsystemBase {
 	public final double MIN_CORRECTION = 0.02;
 
 	double orientationheading = 0;
+	
+	double lastLeftEncoder;
+	double lastRightEncoder;
+	double avgLeftEncoder;
+	double avgRightEncoder;
+	
+	double currentRotationCorrection = -0.12;
 
 	@Override
 	protected void initDefaultCommand() {
@@ -50,11 +58,47 @@ public class DriveBase extends SubsystemBase {
 		SmartDashboard.putBoolean("correctOrientationWithNavx", correctOrientationWithNavx);
 		//System.out.println("Je resoir de " + moveValue + ", " + rotateValue);
 		if (correctOrientationWithNavx)
-			rotateValue = correctRotation(moveValue, rotateValue);
+			rotateValue = correctRotationWithEncoders(moveValue, rotateValue);
 		drive.arcadeDrive(moveValue, rotateValue);
 	}
 
-	private double correctRotation(double moveValue, double rotateValue) {
+	private double correctRotationWithEncoders(double moveValue, double rotateValue) {
+		if (moveValue == 0) {
+			// Move as normal
+			lastLeftEncoder = leftEncoder.get();
+			lastRightEncoder = rightEncoder.get();
+			//System.out.println("arrete");
+		} else {
+			if (rotateValue != 0) {
+				// We don't apply correction when the inputed rotation wants to
+				// turn. ( not zero )
+				lastLeftEncoder = leftEncoder.get();
+				lastRightEncoder = rightEncoder.get();
+				//System.out.println("mais on tourne pas");
+			} else {
+				double n = 5;
+				avgLeftEncoder = avgLeftEncoder * (n - 1) / n + (leftEncoder.get() - lastLeftEncoder) / n;
+				avgRightEncoder = avgRightEncoder * (n - 1) / n + (rightEncoder.get() - lastRightEncoder) / n;
+				
+				lastLeftEncoder = leftEncoder.get();
+				lastRightEncoder = rightEncoder.get();
+				double diff = avgLeftEncoder - avgRightEncoder;
+				
+				System.out.println("DriveBase la diff est :" +  currentRotationCorrection);
+				if( diff < -TOO_MUCH_ERROR_DIFF) {
+					currentRotationCorrection += 0.01;
+				}else if( diff > TOO_MUCH_ERROR_DIFF) {
+					currentRotationCorrection -= 0.01;
+				}
+				
+				rotateValue += currentRotationCorrection;
+				SmartDashboard.putNumber("correction", currentRotationCorrection);
+			}
+		}
+		return rotateValue;
+	}
+	
+	private double correctRotationWithNavX(double moveValue, double rotateValue) {
 		if (moveValue == 0) {
 			// Move as normal
 			orientationheading = getOrientation();

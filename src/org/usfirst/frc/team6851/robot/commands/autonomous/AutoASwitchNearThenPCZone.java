@@ -18,11 +18,11 @@ public class AutoASwitchNearThenPCZone extends AutonomousCommand {
 
 		addSequential(new FirstDelay());
 		addSequential(new MoveDistance(1*12, MoveSpeedMiddle));
-		//addSequential(new WaitForRobotNotRotating());
-		//addSequential(new TurnRobotCommand(-10 * angleFactor, MoveSpeedFast));
+		addSequential(new WaitForRobotNotRotating());
+		addSequential(new TurnRobotCommand(-20 * angleFactor, MoveSpeedFast));
 		addSequential(new MoveDistance(10*12, MoveSpeedFast));
 		addSequential(new WaitForRobotNotRotating());
-		addSequential(new TurnRobotCommand(90 * angleFactor, TurnSpeedSlow));
+		addSequential(new TurnRobotCommand(110 * angleFactor, TurnSpeedSlow));
 		
 		addSequential(new SmashTheWallForJohn());
 		addSequential(new ThrowPowerCube());

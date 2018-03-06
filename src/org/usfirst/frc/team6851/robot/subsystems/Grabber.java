@@ -9,11 +9,12 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 
 public class Grabber extends SubsystemBase {
 
-	public static double SCREW_HEIGHT_UPPER_LIMIT = 3360; // 2750
-	public static double SCREW_HEIGHT_LOWER_LIMIT = 2220; // 1610
+	public static double SCREW_HEIGHT_UPPER_LIMIT = -66; // 2750
+	public static double SCREW_HEIGHT_LOWER_LIMIT = -1830; // 1610
 
 	public final DigitalInput lowerLimitSwitch = tryInitDigitalInput(RobotMap.lowerLimitSwitch, "LowerLimiteSwitch");
 	public final DigitalInput upperLimitSwitch = tryInitDigitalInput(RobotMap.upperLimitSwitch, "UpperLimitSwitch");
@@ -23,8 +24,8 @@ public class Grabber extends SubsystemBase {
 	
 	public final TalonSRX grabberMotorLeft = tryInitTalonSRX(RobotMap.grabberMotorLeft, false, "Grabber Left");
 	public final TalonSRX grabberMotorRight  = tryInitTalonSRX(RobotMap.grabberMotorRight, false, "Grabber Right");
-	public final AnalogInput screwHeight = tryInitAnalogInput(RobotMap.screwHeightPotentiometer, "ScrewHeightPotentiometer");
 
+	public final Encoder screwHeightEncoder = tryInitEncoder(6, 5, true, "Screw Height Encoder");
 	
 	
 	@Override
@@ -65,10 +66,10 @@ public class Grabber extends SubsystemBase {
 	}
 	
 	public double getScrewHeight() {
-		if(screwHeight == null)
+		if(screwHeightEncoder == null)
 			return -1;
 		else 
-			return screwHeight.getValue();
+			return screwHeightEncoder.get();
 	}
 	
 	public boolean getLowerLimitSwitch() {
@@ -89,12 +90,12 @@ public class Grabber extends SubsystemBase {
 
 	public boolean IsAtLowerLimit() {
 		return (lowerLimitSwitch != null && lowerLimitSwitch.get())
-				|| (screwHeight != null && screwHeight.getValue() < SCREW_HEIGHT_LOWER_LIMIT);
+				|| (screwHeightEncoder != null && screwHeightEncoder.get() <= SCREW_HEIGHT_LOWER_LIMIT);
 	}
 
 	public boolean IsAtUpperLimit() {
 		return (upperLimitSwitch != null && upperLimitSwitch.get())
-				|| (screwHeight != null && screwHeight.getValue() > SCREW_HEIGHT_UPPER_LIMIT);
+				|| (screwHeightEncoder != null && screwHeightEncoder.get() >= SCREW_HEIGHT_UPPER_LIMIT);
 	}
 
 	public void stopWheelMotors() {

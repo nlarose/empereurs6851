@@ -13,7 +13,6 @@ import org.usfirst.frc.team6851.robot.commands.CancelAllCommandsCommand;
 import org.usfirst.frc.team6851.robot.commands.claw.GrabPowerCube;
 import org.usfirst.frc.team6851.robot.commands.claw.SetGrabber;
 import org.usfirst.frc.team6851.robot.commands.claw.SetGrabberDown;
-import org.usfirst.frc.team6851.robot.commands.claw.SetGrabberUp;
 import org.usfirst.frc.team6851.robot.commands.claw.ThrowPowerCube;
 import org.usfirst.frc.team6851.robot.commands.driving.SmashTheWallForJohn;
 import org.usfirst.frc.team6851.robot.commands.driving.ToggleDriveDirectionCommand;
@@ -78,13 +77,13 @@ public class OI {
 		
 		getButton(GamepadButton.Back).whenPressed(new CancelAllCommandsCommand());
 		
-		getPovButton(joystick1, POVDirection.Up).whenPressed(new SetGrabber(3200, 2));  //2600
-		getPovButton(joystick1, POVDirection.Left).whenPressed(new SetGrabber(2500, 2)); //2050
+		getPovButton(joystick1, POVDirection.Up).whenPressed(new SetGrabber(-184, 2));  
+		getPovButton(joystick1, POVDirection.Left).whenPressed(new SetGrabber(-1030, 2));
 		getPovButton(joystick1, POVDirection.Down).whenPressed(new SetGrabberDown(Constant.SCREW_AUTO_SPEED));
 		
-		// grabberLeftMotor = getButton(GamepadButton.LB);
-		// grabberRightMotor = getButton(GamepadButton.RB);
-		// grabberThrow = getButton(GamepadButton.Start);
+		grabberLeftMotor = getButton(GamepadButton.LB);
+		grabberRightMotor = getButton(GamepadButton.RB);
+		grabberThrow = getButton(GamepadButton.Start);
 		
 		System.out.println("Switching to Gamepad");
 	}

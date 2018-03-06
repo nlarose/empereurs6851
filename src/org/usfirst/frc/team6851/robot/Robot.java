@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team6851.robot;
 
+import org.usfirst.frc.team6851.robot.commands.CommandBase;
 import org.usfirst.frc.team6851.robot.commands.FirstDelay;
 import org.usfirst.frc.team6851.robot.commands.SecondDelay;
 import org.usfirst.frc.team6851.robot.systemCheckUp.SystemCheckUp;
@@ -186,6 +187,7 @@ public class Robot extends TimedRobot {
 		Dashboard.update();
 		SystemCheckUp.update();
 		oi.update();
+		//System.out.println(CommandBase.grabber.getScrewHeight());
 		//System.out.println(CommandBase.grabber().lowerLimitSwitch.get());
 	}
 }

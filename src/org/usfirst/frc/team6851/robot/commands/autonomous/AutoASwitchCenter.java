@@ -16,10 +16,10 @@ public class AutoASwitchCenter extends AutonomousCommand {
 		addSequential(new FirstDelay());
 		addSequential(new MoveDistance(1*12, MoveSpeedMiddle));
 		addSequential(new WaitForRobotNotRotating());
-		addSequential(new TurnRobotCommand(-10 * angleFactor, MoveSpeedFast));
+		addSequential(new TurnRobotCommand(-20 * angleFactor, MoveSpeedFast));
 		addSequential(new MoveDistance(11*12, MoveSpeedFast));
 		addSequential(new WaitForRobotNotRotating());
-		addSequential(new TurnRobotCommand(100 * angleFactor, MoveSpeedFast));
+		addSequential(new TurnRobotCommand(110 * angleFactor, MoveSpeedFast));
 		
 		addSequential(new SmashTheWallForJohn());
 		addSequential(new ThrowPowerCube());

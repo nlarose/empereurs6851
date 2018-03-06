@@ -2,6 +2,7 @@ package org.usfirst.frc.team6851.robot;
 
 import org.usfirst.frc.team6851.robot.commands.CommandBase;
 import org.usfirst.frc.team6851.robot.commands.autonomous.*;
+import org.usfirst.frc.team6851.robot.commands.claw.ForceRaiseGrabber;
 import org.usfirst.frc.team6851.robot.commands.oldAuto.AutoDance;
 import org.usfirst.frc.team6851.robot.subsystems.DriveBase;
 import org.usfirst.frc.team6851.robot.utils.SmarterDashboard;
@@ -29,6 +30,8 @@ public class Dashboard {
 	private static int autonomousStepIndex = 0;
 	
 	public static void init() {
+		SmartDashboard.putData(new ForceRaiseGrabber());
+		
 		SmartDashboard.putData("Auto LRL mode", LRLChooser);
 		SmartDashboard.putData("Auto RLR mode", RLRChooser);
 		SmartDashboard.putData("Auto LLL mode", LLLChooser);
