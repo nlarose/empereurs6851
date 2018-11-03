@@ -5,8 +5,12 @@ import org.usfirst.frc.team6851.robot.SmarterDigitalInput;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.SensorBase;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Ultrasonic.Unit;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -14,7 +18,51 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public abstract class SubsystemBase extends Subsystem {
 
+	protected Compressor tryInitCompressor(int chanel, String name) {
+		try {
+			Compressor ObjetCompresseur= new Compressor(chanel);
+			// Definir le canal PCM par defaut (pas teste, enlever si ca ne marche pas)
+			SensorBase.setDefaultSolenoidModule(chanel);
+			return ObjetCompresseur;
+		}catch(Exception e) {
+			if (e.getMessage().contains("Code: -1029")) {
+				System.err.println("ERRROR! Compressor " + name + " at " + chanel + " is not pluged-in.");
+			} else {
+				System.err.println(e.getMessage());
+			}
+			return null;
+		}
+	}
 
+	protected Solenoid tryInitSolenoid(int chanel, String name) {
+		try {
+			Solenoid ObjetSolenoid= new Solenoid(chanel);
+			
+			return ObjetSolenoid;
+		}catch(Exception e) {
+			if (e.getMessage().contains("Code: -1029")) {
+				System.err.println("ERRROR! Solenoid " + name + " at " + chanel + " is not pluged-in.");
+			} else {
+				System.err.println(e.getMessage());
+			}
+			return null;
+		}
+	}
+
+	protected DoubleSolenoid tryInitDoubleSolenoid(int forwardChannel, int backwardChannel,String name) {
+		try {
+			DoubleSolenoid ObjetSolenoid = new DoubleSolenoid(forwardChannel, backwardChannel);
+			
+			return ObjetSolenoid;
+		}catch(Exception e) {
+			if (e.getMessage().contains("Code: -1029")) {
+				System.err.println("ERRROR! DoubleSolenoid " + name + " at " + forwardChannel + " is not pluged-in.");
+			} else {
+				System.err.println(e.getMessage());
+			}
+			return null;
+		}
+	}
 	
 	protected TalonSRX tryInitTalonSRX(int chanel, boolean inverted, String name) {
 		try {

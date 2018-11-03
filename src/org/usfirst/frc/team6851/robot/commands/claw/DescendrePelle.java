@@ -2,25 +2,24 @@ package org.usfirst.frc.team6851.robot.commands.claw;
 
 import org.usfirst.frc.team6851.robot.commands.CommandBase;
 
-public class ThrowPowerCube extends CommandBase {
+public class DescendrePelle extends CommandBase {
 
-	public ThrowPowerCube() {
-		setTimeout(0.75);
+	public DescendrePelle() {
+		//setTimeout(10);
 	}
 	
 	@Override
 	protected void execute() {
-		grabber.ThrowPowerCube();
+		pelle.Descendre();;
 	}
 	
 	@Override
 	protected void end() {
-		grabber.stopWheelMotors();
 	}
 	
 	@Override
 	protected boolean isFinished() {
-		return isTimedOut();
+		return true;
 	}
 
 }

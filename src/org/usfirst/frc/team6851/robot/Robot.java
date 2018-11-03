@@ -10,7 +10,7 @@ package org.usfirst.frc.team6851.robot;
 import org.usfirst.frc.team6851.robot.commands.CommandBase;
 import org.usfirst.frc.team6851.robot.commands.FirstDelay;
 import org.usfirst.frc.team6851.robot.commands.SecondDelay;
-import org.usfirst.frc.team6851.robot.commands.claw.CalibrateClaw;
+//import org.usfirst.frc.team6851.robot.commands.claw.CalibrateClaw;
 import org.usfirst.frc.team6851.robot.systemCheckUp.SystemCheckUp;
 
 import edu.wpi.first.wpilibj.CameraServer;
@@ -166,7 +166,7 @@ public class Robot extends TimedRobot {
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
-		new CalibrateClaw().start();
+		//new CalibrateClaw().start();
 	}
 
 	/**

@@ -16,9 +16,9 @@ public class SystemCheckUp {
 		SmartDashboard.putBoolean("Checkup All Go", false);
 		
 		
-		checkup.add(new DigitalInputChecker(CommandBase.grabber.lowerLimitSwitch, "Lower Limit Switch Check"));
-		checkup.add(new DigitalInputChecker(CommandBase.grabber.upperLimitSwitch, "Upper Limit Switch Check"));
-		checkup.add(new DigitalInputChecker(CommandBase.grabber.powerCubeInSwitch, "Power Cube In Check"));
+		checkup.add(new DigitalInputChecker(CommandBase.pelle.lowerLimitSwitch, "Lower Limit Switch Check"));
+//!!!		checkup.add(new DigitalInputChecker(CommandBase.grabber.upperLimitSwitch, "Upper Limit Switch Check"));
+//!!!		checkup.add(new DigitalInputChecker(CommandBase.grabber.powerCubeInSwitch, "Power Cube In Check"));
 		//checkup.add(new AnalogPotentiometerInputChecker(CommandBase.grabber.screwHeight, "Scew Height Checker"));
 		
 		checkup.add(new EncoderChecker(CommandBase.driveBase.leftEncoder, "Left Encoder Checker"));

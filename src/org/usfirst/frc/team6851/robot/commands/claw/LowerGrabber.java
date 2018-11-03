@@ -1,9 +1,4 @@
-package org.usfirst.frc.team6851.robot.commands.claw;
-
-import org.usfirst.frc.team6851.robot.commands.CommandBase;
-
-public class LowerGrabber extends CommandBase {
-
+/*
 	public LowerGrabber() {
 		requires(grabber);
 	}
@@ -23,3 +18,4 @@ public class LowerGrabber extends CommandBase {
 		grabber.stopScrewMotor();
 	}
 }
+*/

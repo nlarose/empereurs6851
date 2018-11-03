@@ -2,7 +2,7 @@ package org.usfirst.frc.team6851.robot.commands.autonomous;
 
 import org.usfirst.frc.team6851.robot.commands.FirstDelay;
 import org.usfirst.frc.team6851.robot.commands.WaitForRobotNotRotating;
-import org.usfirst.frc.team6851.robot.commands.claw.ThrowPowerCube;
+import org.usfirst.frc.team6851.robot.commands.claw.MonterPelle;
 import org.usfirst.frc.team6851.robot.commands.driving.MoveDistance;
 import org.usfirst.frc.team6851.robot.commands.driving.SmashTheWallForJohn;
 import org.usfirst.frc.team6851.robot.commands.driving.TurnRobotCommand;
@@ -22,7 +22,7 @@ public class AutoASwitchCenter extends AutonomousCommand {
 		addSequential(new TurnRobotCommand(110 * angleFactor, MoveSpeedFast));
 		
 		addSequential(new SmashTheWallForJohn());
-		addSequential(new ThrowPowerCube());
+		addSequential(new MonterPelle());
 	}
 	
 }

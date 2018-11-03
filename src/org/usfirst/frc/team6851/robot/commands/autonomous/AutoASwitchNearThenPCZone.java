@@ -4,8 +4,8 @@ import org.usfirst.frc.team6851.robot.Constant;
 import org.usfirst.frc.team6851.robot.commands.FirstDelay;
 import org.usfirst.frc.team6851.robot.commands.SecondDelay;
 import org.usfirst.frc.team6851.robot.commands.WaitForRobotNotRotating;
-import org.usfirst.frc.team6851.robot.commands.claw.SetGrabberDown;
-import org.usfirst.frc.team6851.robot.commands.claw.ThrowPowerCube;
+//import org.usfirst.frc.team6851.robot.commands.claw.SetGrabberDown;
+import org.usfirst.frc.team6851.robot.commands.claw.MonterPelle;
 import org.usfirst.frc.team6851.robot.commands.driving.MoveDistance;
 import org.usfirst.frc.team6851.robot.commands.driving.SmashTheWallForJohn;
 import org.usfirst.frc.team6851.robot.commands.driving.TurnRobotCommand;
@@ -25,14 +25,14 @@ public class AutoASwitchNearThenPCZone extends AutonomousCommand {
 		addSequential(new TurnRobotCommand(110 * angleFactor, TurnSpeedSlow));
 		
 		addSequential(new SmashTheWallForJohn());
-		addSequential(new ThrowPowerCube());
+		addSequential(new MonterPelle());
 		addSequential(new SecondDelay());
 		
 		addSequential(new MoveDistance(-1*12, MoveSpeedMiddle));
 		addSequential(new WaitForRobotNotRotating());
 		addSequential(new TurnRobotCommand(90 * angleFactor, TurnSpeedSlow));
 		
-		addParallel(new SetGrabberDown(Constant.SCREW_AUTO_SPEED));
+		//addParallel(new SetGrabberDown(Constant.SCREW_AUTO_SPEED));
 		addParallel(new MoveDistance(3*12, MoveSpeedMiddle));
 		
 		addSequential(new TurnRobotCommand(-90 * angleFactor, TurnSpeedSlow));

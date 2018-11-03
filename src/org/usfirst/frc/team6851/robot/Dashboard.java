@@ -84,13 +84,13 @@ public class Dashboard {
 		SmartDashboard.putBoolean("navx isCalibrating", drivebase.isCalibrating());
 		SmartDashboard.putBoolean("Navx Angle Correction", drivebase.correctOrientationWithNavx);
 		
-
+/*
 		SmartDashboard.putNumber("Screw Height", CommandBase.grabber.getScrewHeight());
 
 		SmartDashboard.putBoolean("Limite switch lower", CommandBase.grabber.getLowerLimitSwitch());
 		SmartDashboard.putBoolean("Limite switch upper", CommandBase.grabber.getUpperLimitSwitch());
 		SmartDashboard.putBoolean("Limite switch powercube", CommandBase.grabber.getPowerCube());
-		
+	*/	
 		
 		
 		SmartDashboard.putNumber("Left Motor Encoder", drivebase.getLeftEncoderDistance() / Constant.ENCODER_ROTATION_PER_INCH);

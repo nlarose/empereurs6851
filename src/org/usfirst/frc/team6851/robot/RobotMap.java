@@ -25,7 +25,14 @@ public class RobotMap {
 	
 
 
-	//grabber 
+	//Pelle
+	public static int canalCanPCM = 0;
+	public static int canalMouvementMonterPelle = 1;
+	public static int canalMouvementDecendrePelle = 0;
+	public static int canalMouvementAvancerPelle = 2;
+	public static int canalMouvementReculerPelle =3;
+	
+	
 	public static int lowerLimitSwitch = 9;
 	public static int upperLimitSwitch = 8;
 	

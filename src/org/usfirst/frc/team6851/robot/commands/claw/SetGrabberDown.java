@@ -1,3 +1,4 @@
+/*
 package org.usfirst.frc.team6851.robot.commands.claw;
 
 import org.usfirst.frc.team6851.robot.commands.CommandBase;
@@ -18,11 +19,11 @@ public class SetGrabberDown extends CommandBase {
 
 	@Override
 	protected boolean isFinished() {
-		return grabber.IsAtLowerLimit();
+		return true;
 	}
 
 	@Override
 	protected void end() {
-		grabber.stopScrewMotor();
 	}
 }
+*/

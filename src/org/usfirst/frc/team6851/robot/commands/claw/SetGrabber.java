@@ -16,15 +16,11 @@ public class SetGrabber extends CommandBase{
 
 	@Override
 	protected void execute() {
-		if(grabber.getScrewHeight() < TargetPosition)
-			grabber.Raise(Constant.SCREW_AUTO_SPEED);
-		else if(grabber.getScrewHeight() > TargetPosition)
-			grabber.Lower(Constant.SCREW_AUTO_SPEED);
 	}
 	
 	@Override
 	protected boolean isFinished() {
-		return Math.abs(grabber.getScrewHeight() - TargetPosition) < TargetEpsilon;
+		return true;
 	}
 
 }

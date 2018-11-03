@@ -1,3 +1,4 @@
+/*
 package org.usfirst.frc.team6851.robot.commands.claw;
 
 import org.usfirst.frc.team6851.robot.Constant;
@@ -31,6 +32,7 @@ public class PlayerControledGrabber extends CommandBase {
 		else
 			grabber.grabberMotorRight.set(ControlMode.PercentOutput, 0);
 */
+/*
 	}
 
 	@Override
@@ -38,3 +40,4 @@ public class PlayerControledGrabber extends CommandBase {
 		return false;
 	}
 }
+*/

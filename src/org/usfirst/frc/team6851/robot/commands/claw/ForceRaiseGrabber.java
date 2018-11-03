@@ -8,12 +8,13 @@ public class ForceRaiseGrabber extends CommandBase{
 
 	@Override
 	protected void execute() {
-		grabber.screwMotor.set(ControlMode.PercentOutput, 0.6);
+		//!!!grabber.screwMotor.set(ControlMode.PercentOutput, 0.6);
 	}
 	
 	@Override
 	protected boolean isFinished() {
-		return grabber.getUpperLimitSwitch();
+		//!!!! return grabber.getUpperLimitSwitch();
+		return true;
 	}
 
 }

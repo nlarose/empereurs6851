@@ -10,10 +10,10 @@ package org.usfirst.frc.team6851.robot;
 import java.util.ArrayList;
 
 import org.usfirst.frc.team6851.robot.commands.CancelAllCommandsCommand;
-import org.usfirst.frc.team6851.robot.commands.claw.GrabPowerCube;
+import org.usfirst.frc.team6851.robot.commands.claw.DescendrePelle;
 import org.usfirst.frc.team6851.robot.commands.claw.SetGrabber;
-import org.usfirst.frc.team6851.robot.commands.claw.SetGrabberDown;
-import org.usfirst.frc.team6851.robot.commands.claw.ThrowPowerCube;
+//import org.usfirst.frc.team6851.robot.commands.claw.SetGrabberDown;
+import org.usfirst.frc.team6851.robot.commands.claw.MonterPelle;
 import org.usfirst.frc.team6851.robot.commands.driving.SmashTheWallForJohn;
 import org.usfirst.frc.team6851.robot.commands.driving.ToggleDriveDirectionCommand;
 import org.usfirst.frc.team6851.robot.commands.driving.ToggleSlowerMoveCommand;
@@ -71,15 +71,15 @@ public class OI {
 		getButton(GamepadButton.RB).toggleWhenActive(new ToggleDriveDirectionCommand());
 		//getButton(GamepadButton.Start).toggleWhenActive(new ToggleNavxNavigationCommand());
 
-		getButton(GamepadButton.X).whenPressed(new ThrowPowerCube());
-		getButton(GamepadButton.Y).toggleWhenPressed(new GrabPowerCube());
+		getButton(GamepadButton.X).whenPressed(new MonterPelle());
+		getButton(GamepadButton.Y).whenPressed(new DescendrePelle());
 		getButton(GamepadButton.A).toggleWhenPressed(new SmashTheWallForJohn());
 		
 		getButton(GamepadButton.Back).whenPressed(new CancelAllCommandsCommand());
 		
-		getPovButton(joystick1, POVDirection.Up).whenPressed(new SetGrabber(-184, 2));  
-		getPovButton(joystick1, POVDirection.Left).whenPressed(new SetGrabber(-1030, 2));
-		getPovButton(joystick1, POVDirection.Down).whenPressed(new SetGrabberDown(Constant.SCREW_AUTO_SPEED));
+		//getPovButton(joystick1, POVDirection.Up).whenPressed(new SetGrabber(-184, 2));  
+		//getPovButton(joystick1, POVDirection.Left).whenPressed(new SetGrabber(-1030, 2));
+		//getPovButton(joystick1, POVDirection.Down).whenPressed(new SetGrabberDown(Constant.SCREW_AUTO_SPEED));
 		
 		grabberLeftMotor = getButton(GamepadButton.LB);
 		grabberRightMotor = getButton(GamepadButton.RB);

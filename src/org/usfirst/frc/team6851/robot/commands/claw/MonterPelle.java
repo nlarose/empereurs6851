@@ -2,25 +2,25 @@ package org.usfirst.frc.team6851.robot.commands.claw;
 
 import org.usfirst.frc.team6851.robot.commands.CommandBase;
 
-public class GrabPowerCube extends CommandBase {
+public class MonterPelle extends CommandBase {
 
-	public GrabPowerCube() {
-		setTimeout(10);
+	public MonterPelle() {
+		//setTimeout(0.75);
 	}
 	
 	@Override
 	protected void execute() {
-		grabber.FeedPowerCube();
+		pelle.Monter();
 	}
 	
 	@Override
 	protected void end() {
-		grabber.stopWheelMotors();
+
 	}
 	
 	@Override
 	protected boolean isFinished() {
-		return isTimedOut() || grabber.hasACube();
+		return true;
 	}
 
 }

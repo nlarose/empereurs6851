@@ -1,3 +1,4 @@
+/*
 package org.usfirst.frc.team6851.robot.commands.claw;
 
 import org.usfirst.frc.team6851.robot.commands.CommandBase;
@@ -12,17 +13,18 @@ public class CalibrateClaw extends CommandBase{
 	
 	@Override
 	protected void execute() {
-		grabber.screwMotor.set(ControlMode.PercentOutput, 0.4);
+		//grabber.screwMotor.set(ControlMode.PercentOutput, 0.4);
 	}
 	
 	@Override
 	protected boolean isFinished() {
-		return grabber.upperLimitSwitch.get();
+		return true;
 	}
 	
 	@Override
 	protected void end() {
-		grabber.screwHeightEncoder.reset();
+		//grabber.screwHeightEncoder.reset();
 	}
 
 }
+*/
